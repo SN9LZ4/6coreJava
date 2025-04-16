@@ -37,16 +37,6 @@ private TextField emailTextField;
 private TextField phoneTextField;
 @FXML
 private TextField localisationTextField;
-@FXML
-private Label localisationErrorLabel;
-@FXML
-private Label phoneErrorLabel;
-@FXML
-private Label emailErrorLabel;
-@FXML
-private Label nomErrorLabel;
-@FXML
-private Label prenomErrorLabel;
     @FXML
     public void initialize() throws SQLException {
 
@@ -56,7 +46,7 @@ private Label prenomErrorLabel;
         emailTextField.setText(user.getEmail());
 phoneTextField.setText(user.getNum_telephone()+"");
 localisationTextField.setText(user.getLocalisation());
-String imageFromDb = user.getimage();
+String imageFromDb = UserSessionManager.getInstance().getCurrentUser().getimage();
         Image image1 = new Image(imageFromDb);
         imageView.setImage(image1);
     }
@@ -89,56 +79,14 @@ String imageFromDb = user.getimage();
     }
 
     public void edit() throws SQLException, IOException {
-        int compteur =0;
         int id = UserSessionManager.getInstance().getCurrentUser().getId();
         System.out.println(id);
         String nomInput = nomTextField.getText();
         String prenomInput = prenomTextField.getText();
         String emailInput = emailTextField.getText();
-
+        int numTelephoneInput = Integer.parseInt(phoneTextField.getText());
         String localisationInput = localisationTextField.getText();
         String imagePathInput = imagePathLabel.getText();
-        if (nomInput.equals("") || nomInput.length() <=3) {
-            compteur ++;
-            showError("nomInvalide",nomErrorLabel);
-            System.out.println("nom invalide");
-        }
-        else{
-           nomErrorLabel.setOpacity(0);
-        }
-        if (prenomInput.equals("") || prenomInput.length() <=3) {
-            compteur ++;
-            showError("prenomInvalide",prenomErrorLabel);
-            System.out.println("prenom invalide");
-        }
-        else {
-            prenomErrorLabel.setOpacity(0);
-        }
-        if (emailInput.isEmpty() || !emailInput.matches("^[\\w.-]+@(gmail\\.com|esprit\\.tn)$")) {
-            showError("Email invalide",emailErrorLabel);
-            System.out.println("Email valide");
-            compteur++;
-        } else {
-            System.out.println("Email invalide");
-            emailErrorLabel.setOpacity(0);
-        }
-        if (localisationInput.equals("") || localisationInput.length() <=3) {
-            compteur ++;
-            showError("localisationInvalide",localisationErrorLabel);
-        }
-        else {
-            localisationErrorLabel.setOpacity(0);
-        }
-        String phoneInput1 = phoneTextField.getText();
-
-        if (!phoneInput1.matches("[0-9]{8}")) {
-            showError("Numéro invalide",phoneErrorLabel);
-            compteur ++;
-            System.out.println("numTelephone invalide");
-        }
-        else{
-            phoneErrorLabel.setOpacity(0);
-        }
         System.out.println(imagePathInput);
         if (!imagePathInput.equals("Aucune image sélectionnée")) {
             Path sourcePath = Paths.get(imagePathInput);
@@ -172,35 +120,22 @@ String imageFromDb = user.getimage();
             System.out.println("d5al");
             imagePathInput= UserSessionManager.getInstance().getCurrentUser().getimage();
         }
+        System.out.println(nomInput+prenomInput+emailInput+numTelephoneInput+localisationInput);
+        userService.modifier(nomInput,prenomInput,emailInput,localisationInput,numTelephoneInput,imagePathInput,id);
 
-        if (compteur==0) {
-            int numTelephoneInput = Integer.parseInt(phoneTextField.getText());
-            userService.modifier(nomInput, prenomInput, emailInput, localisationInput, numTelephoneInput, imagePathInput, id);
 
-            this.pageFront();
-        }
+
+        this.pageFront();
+
     }
 
 
-    private void showError(String message,Label nomlabel) {
-        nomlabel.setText(message);
-        nomlabel.setOpacity(1);
-    }
+
 
     public void pageFront() throws IOException {
 
         Stage currentStage = (Stage) imageView.getScene().getWindow();
         navbarController.changeScene("/user/front.fxml", currentStage);
 
-    }
-    public void pageReclamation() throws IOException {
-
-        Stage currentStage = (Stage) imageView.getScene().getWindow();
-        navbarController.changeScene("/Reclamation/affichageReclamationFront.fxml", currentStage);
-    }
-    public void logout() throws IOException {
-        UserSessionManager.getInstance().logout();
-        Stage currentStage = (Stage) imageView.getScene().getWindow();
-        navbarController.changeScene("hello-view.fxml", currentStage);
     }
 }

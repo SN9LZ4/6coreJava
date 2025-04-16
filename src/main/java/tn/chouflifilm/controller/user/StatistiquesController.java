@@ -270,11 +270,6 @@ public class StatistiquesController {
         Stage currentStage = (Stage) circle1.getScene().getWindow();
         navbarController.changeScene("/Benevolat/Association/affichageBack.fxml", currentStage);
     }
-    public void pageReclamation() throws IOException {
-
-        Stage currentStage = (Stage) circle1.getScene().getWindow();
-        navbarController.changeScene("/Reclamation/reclamationBack.fxml", currentStage);
-    }
 
 
 }

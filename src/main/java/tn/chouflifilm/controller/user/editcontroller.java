@@ -426,5 +426,4 @@ this.pageuser();
         navbarController.changeScene("/Benevolat/Association/affichageBack.fxml", currentStage);
     }
 
-
 }

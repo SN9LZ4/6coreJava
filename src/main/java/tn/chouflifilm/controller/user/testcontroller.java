@@ -21,11 +21,6 @@ import javafx.util.Duration;
 import org.mindrot.jbcrypt.BCrypt;
 import tn.chouflifilm.entities.User;
 import tn.chouflifilm.services.userService;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
@@ -292,7 +287,7 @@ public class testcontroller {
     }
 
     @FXML
-    public void signin(ActionEvent event) throws IOException {
+    public void signin(ActionEvent event) {
         int compteur =0;
 
         String nomInput = nom.getText();
@@ -388,32 +383,6 @@ public class testcontroller {
         }
 
         String imagePathInput = imagePathLabel.getText();
-        Path sourcePath = Paths.get(imagePathInput);
-
-        // Créer le dossier ressources/images s'il n'existe pas
-        Path destinationFolder = Paths.get("src/main/resources/images");
-        Files.createDirectories(destinationFolder);
-
-        // Générer un nom de fichier unique pour éviter les écrasements
-        String fileName = sourcePath.getFileName().toString();
-        Path destinationPath = destinationFolder.resolve(fileName);
-
-        // Gérer les fichiers en double
-        int counter = 1;
-        while (Files.exists(destinationPath)) {
-            String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf('.'));
-            String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-            destinationPath = destinationFolder.resolve(fileNameWithoutExtension + "_" + counter + fileExtension);
-            counter++;
-        }
-
-        // Copier le fichier (avec remplacement si nécessaire)
-        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-
-
-
-        System.out.println("Image déplacée avec succès vers : " + destinationPath);
-        System.out.println(imagePathInput);
         String hashedPassword = BCrypt.hashpw(passwordInput, BCrypt.gensalt());
         int phoneInput = Integer.parseInt(numTelephone.getText());
         if(compteur ==0) {

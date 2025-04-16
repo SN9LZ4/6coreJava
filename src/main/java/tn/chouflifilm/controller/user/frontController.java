@@ -1,9 +1,6 @@
 package tn.chouflifilm.controller.user;
 
-import com.example.demo.HelloApplication;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,7 +33,7 @@ User user= userService.recherparid(UserSessionManager.getInstance().getCurrentUs
     public void pageupdateFront() throws IOException {
 
         Stage currentStage = (Stage) imageView.getScene().getWindow();
-        navbarController.changeScene("/user/editFront.fxml", currentStage);
+        navbarController.changeScene("/user/updateFont.fxml", currentStage);
     }
     public void pageReclamation() throws IOException {
 
@@ -49,11 +46,7 @@ User user= userService.recherparid(UserSessionManager.getInstance().getCurrentUs
         Stage currentStage = (Stage) imageView.getScene().getWindow();
         navbarController.changeScene("/Benevolat/Association/affichageFront.fxml", currentStage);
     }
-    public void logout() throws IOException {
-        UserSessionManager.getInstance().logout();
-        Stage currentStage = (Stage) imageView.getScene().getWindow();
-        navbarController.changeScene("hello-view.fxml", currentStage);
-    }
+
 
 
 }

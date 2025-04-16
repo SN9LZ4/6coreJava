@@ -783,8 +783,7 @@ compteur ++;
                 email.clear();
                 password.clear();
                 confirmPassword.clear();
-                dateNaissance.setValue(null);
-                roleGroup.selectToggle(null);
+
                 localisation.clear();
                 imagePathLabel.setText("");
 
@@ -862,11 +861,6 @@ compteur ++;
 
         Stage currentStage = (Stage) circle1.getScene().getWindow();
         navbarController.changeScene("/Benevolat/Association/affichageBack.fxml", currentStage);
-    }
-    public void pageReclamation() throws IOException {
-
-        Stage currentStage = (Stage) circle1.getScene().getWindow();
-        navbarController.changeScene("/Reclamation/reclamationBack.fxml", currentStage);
     }
 
 

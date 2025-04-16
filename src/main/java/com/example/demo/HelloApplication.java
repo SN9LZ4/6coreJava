@@ -12,7 +12,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/Reclamation/affichageReclamationFront.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1550, 800);
 
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/logo.png")));

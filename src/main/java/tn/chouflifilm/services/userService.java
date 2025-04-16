@@ -69,6 +69,7 @@ public class userService implements IServices<User>{
         System.out.println("Utilisateur Supprimé");
     }
 
+
     @Override
     public void supprimerAll() throws SQLException {
      String sql = "delete from user1";

@@ -1,0 +1,219 @@
+/* Cinema Reservation Modern UI Theme */
+
+/* Base styles for the entire application */
+.root, .main-container, .footer {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    background: linear-gradient(135deg, #fff 80%, #ffeaea 100%);
+    background-color: #fff;
+}
+
+/* Main container with white theme */
+.main-container {
+    background: linear-gradient(135deg, #fff 80%, #ffeaea 100%);
+    background-color: #fff;
+}
+
+.main-content-area {
+    background: linear-gradient(120deg, #fff 80%, #ffeaea 100%);
+    background-color: #fff;
+}
+
+/* ScrollPane styling for transparent background */
+.scroll-pane {
+    background: transparent;
+    background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    background-color: #e53935;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb {
+    background-color: #ff1744;
+    border-radius: 10px;
+}
+
+/* Navigation Button Styles */
+.nav-button {
+    background-color: transparent;
+    color: #e53935;
+    font-size: 14px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    color: #ff1744;
+}
+
+/* Form Control Styling */
+.combo-box {
+    background-color: #fff;
+    border-color: #e53935;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 5px;
+    box-shadow: 0 4px 20px 0 rgba(229,57,53,0.09), 0 1.5px 6px 0 rgba(229,57,53,0.06);
+    border: 1.5px solid #ff1744;
+}
+
+.combo-box .arrow {
+    background-color: #e53935;
+}
+
+.combo-box .list-cell {
+    color: #e53935;
+    background-color: #fff;
+}
+
+.combo-box-popup .list-view {
+    background-color: #fff;
+    border-color: #e53935;
+    border-radius: 8px;
+}
+
+.combo-box-popup .list-cell {
+    background-color: #fff;
+    color: #e53935;
+    padding: 8px 12px;
+}
+
+.combo-box-popup .list-cell:filled:hover {
+    background-color: rgba(255, 23, 68, 0.3);
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    background-color: rgba(255, 23, 68, 0.5);
+}
+
+/* Action buttons styling */
+.action-button {
+    background-color: #ff1744;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    filter: brightness(1.05) saturate(1.2);
+    transition: filter 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 12px 0 rgba(229,57,53,0.16);
+}
+
+.action-button:hover {
+    background-color: #ff5252;
+    filter: brightness(1.12) saturate(1.4);
+    box-shadow: 0 6px 24px 0 rgba(229,57,53,0.22);
+}
+
+.action-button-alt {
+    background-color: #e53935;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    filter: brightness(1.05) saturate(1.2);
+    transition: filter 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 12px 0 rgba(229,57,53,0.16);
+}
+
+.action-button-alt:hover {
+    background-color: #ff5252;
+    filter: brightness(1.12) saturate(1.4);
+    box-shadow: 0 6px 24px 0 rgba(229,57,53,0.22);
+}
+
+/* DatePicker styling */
+.date-picker {
+    background-color: #fff;
+    border-color: #e53935;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px 0 rgba(229,57,53,0.09), 0 1.5px 6px 0 rgba(229,57,53,0.06);
+    border: 1.5px solid #ff1744;
+}
+
+.date-picker .arrow-button .arrow {
+    background-color: #e53935;
+}
+
+.date-picker .cell {
+    background-color: #fff;
+    color: #e53935;
+}
+
+.date-picker .cell:hover {
+    background-color: rgba(255, 23, 68, 0.3);
+}
+
+.date-picker .cell:focused {
+    background-color: rgba(255, 23, 68, 0.5);
+}
+
+.date-picker .selected {
+    background-color: #ff1744;
+    color: #ffffff;
+}
+
+.date-picker-popup {
+    background-color: #fff;
+    border-color: #e53935;
+}
+
+.date-picker-popup .month-year-pane {
+    background-color: #fff;
+}
+
+.date-picker-popup .spinner .button .arrow {
+    background-color: #e53935;
+}
+
+/* Spinner styling */
+.spinner {
+    background-color: #fff;
+    border-color: #e53935;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px 0 rgba(229,57,53,0.09), 0 1.5px 6px 0 rgba(229,57,53,0.06);
+    border: 1.5px solid #ff1744;
+}
+
+.spinner .increment-arrow,
+.spinner .decrement-arrow {
+    background-color: #e53935;
+}
+
+/* Ticket design */
+.ticket {
+    background-color: #fff;
+    border-color: #e53935;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 15px;
+    box-shadow: 0 4px 20px 0 rgba(229,57,53,0.09), 0 1.5px 6px 0 rgba(229,57,53,0.06);
+    border: 1.5px solid #ff1744;
+}
+
+.ticket-text {
+    color: #e53935;
+    font-size: 14px;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, #fff 80%, #ffeaea 100%);
+    background-color: #fff;
+    padding: 15px;
+}
+
+.footer-text {
+    color: #e53935;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff0f0;
+}

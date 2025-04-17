@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.effect.DropShadow?>
+
+<VBox spacing="32" alignment="CENTER" styleClass="main-container" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.cinema.controller.PaymentController">
+    <padding>
+        <Insets top="36" right="40" bottom="36" left="40"/>
+    </padding>
+
+    <Text text="Payment Details" styleClass="main-title"/>
+    
+    <VBox spacing="16" style="-fx-background-color: rgba(30,30,45,0.98); -fx-padding: 32; -fx-background-radius: 18; -fx-effect: dropshadow(gaussian, #00000055, 18, 0.2, 0, 4);">
+        <Text text="Reservation Summary" styleClass="sub-title" style="-fx-fill: #ffd700; -fx-font-size: 20; -fx-font-weight: bold;"/>
+        <Separator style="-fx-background-color: #ffd700; -fx-padding: 0 0 10 0;"/>
+        <GridPane hgap="18" vgap="14" styleClass="form-grid">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" prefWidth="170" />
+                <ColumnConstraints minWidth="220" prefWidth="270" />
+            </columnConstraints>
+            <Label text="🎬 Movie:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="filmLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-text-fill: white; -fx-font-size: 15;"/>
+            <Label text="🏛 Theater:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="salleLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-text-fill: white; -fx-font-size: 15;"/>
+            <Label text="🔢 Number of Seats:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="seatsCountLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-text-fill: white; -fx-font-size: 15;"/>
+            <Label text="💺 Seats:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="seatsLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-text-fill: white; -fx-font-size: 15;"/>
+            <Label text="⭐ Type:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="typeLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill: white; -fx-font-size: 15;"/>
+            <Label text="📅 Date:" GridPane.columnIndex="0" GridPane.rowIndex="5" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="dateLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-text-fill: white; -fx-font-size: 15;"/>
+            <Label text="💰 Total Amount:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+            <Label fx:id="amountLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" style="-fx-text-fill: #ffd700; -fx-font-weight: bold; -fx-font-size: 17;"/>
+        </GridPane>
+    </VBox>
+
+    <!-- Payment Form Fields (initially hidden, shown after Proceed Payment) -->
+    <VBox fx:id="paymentForm" spacing="18" alignment="CENTER" visible="false" style="-fx-background-color: rgba(18,18,18,0.98); -fx-background-radius: 14; -fx-padding: 35 25 25 25; -fx-effect: dropshadow(gaussian, #ffd70099, 12, 0.15, 0, 2);">
+        <Text text="Enter Payment Details" styleClass="sub-title" style="-fx-fill: #ffd700; -fx-font-size: 18; -fx-font-weight: bold;" />
+        <GridPane hgap="14" vgap="16" styleClass="form-grid">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" prefWidth="150" />
+                <ColumnConstraints minWidth="200" prefWidth="250" />
+            </columnConstraints>
+            <Label text="👤 Cardholder Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-text-fill: #ffd700; -fx-font-size: 14;"/>
+            <TextField fx:id="cardholderField" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="e.g. Ahmed Ben Salah" styleClass="form-field" style="-fx-background-color: #23233a; -fx-text-fill: #ffd700; -fx-border-color: #ffd700; -fx-background-radius: 7;"/>
+            <Label text="💳 Card Number:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-text-fill: #ffd700; -fx-font-size: 14;"/>
+            <TextField fx:id="cardNumberField" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="0000 0000 0000 0000" styleClass="form-field" style="-fx-background-color: #23233a; -fx-text-fill: #ffd700; -fx-border-color: #ffd700; -fx-background-radius: 7;"/>
+            <Label text="📆 Expiration Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-text-fill: #ffd700; -fx-font-size: 14;"/>
+            <TextField fx:id="expiryField" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="MM/YY" styleClass="form-field" style="-fx-background-color: #23233a; -fx-text-fill: #ffd700; -fx-border-color: #ffd700; -fx-background-radius: 7;"/>
+            <Label text="🔒 CVV:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-text-fill: #ffd700; -fx-font-size: 14;"/>
+            <PasswordField fx:id="cvvField" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="123" styleClass="form-field" style="-fx-background-color: #23233a; -fx-text-fill: #ffd700; -fx-border-color: #ffd700; -fx-background-radius: 7;"/>
+        </GridPane>
+        <HBox spacing="36" alignment="CENTER">
+            <Button text="Pay Now" onAction="#handleFinalPayment" styleClass="primary-button" style="-fx-font-size: 16; -fx-padding: 12 32; -fx-background-color: #ffd700; -fx-text-fill: #23233a; -fx-background-radius: 8;"/>
+            <Button text="Cancel" onAction="#handleCancelPayment" styleClass="secondary-button" style="-fx-font-size: 16; -fx-padding: 12 32; -fx-background-color: #23233a; -fx-text-fill: #ffd700; -fx-background-radius: 8;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Centered buttons below -->
+    <HBox fx:id="actionButtons" spacing="40" alignment="CENTER" style="-fx-padding: 32 0 0 0;">
+        <Button text="Go Home" onAction="#goBack" styleClass="secondary-button" style="-fx-font-size: 15; -fx-padding: 10 28; -fx-background-color: #23233a; -fx-text-fill: #ffd700; -fx-background-radius: 8;"/>
+        <Button text="Proceed Payment" onAction="#showPaymentForm" styleClass="primary-button" style="-fx-font-size: 15; -fx-padding: 10 28; -fx-background-color: #ffd700; -fx-text-fill: #23233a; -fx-background-radius: 8;"/>
+    </HBox>
+</VBox>

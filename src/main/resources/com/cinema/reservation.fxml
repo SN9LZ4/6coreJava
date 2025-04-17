@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cinema.controller.ReservationController"
+            prefHeight="700.0" prefWidth="1000.0"
+            styleClass="main-container">
+    
+    <stylesheets>
+        <URL value="@styles/front.css" />
+        <URL value="@styles/style.css" />
+    </stylesheets>
+    
+    <!-- Top Navigation Bar -->
+    <top>
+        <VBox spacing="0">
+            <!-- Top Info Bar -->
+            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="top-info-bar">
+                <padding>
+                    <Insets bottom="10" left="20" right="20" top="10" />
+                </padding>
+
+                <Label styleClass="info-text" text="123 Esprit, Elghazela, Tunisie">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@icons/location-pin.png" />
+                        </ImageView>
+                    </graphic>
+                    <effect>
+                        <Glow level="0.2" />
+                    </effect>
+                </Label>
+
+                <Label styleClass="info-text" text="+216 24 705 213">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@icons/phone-call.png" />
+                        </ImageView>
+                    </graphic>
+                    <effect>
+                        <Glow level="0.2" />
+                    </effect>
+                </Label>
+
+                <Label styleClass="info-text" text="ChouFliFilm@gmail.com">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@icons/email-envelope.png" />
+                        </ImageView>
+                    </graphic>
+                    <effect>
+                        <Glow level="0.2" />
+                    </effect>
+                </Label>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Social Media Icons with Improved Styling -->
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <!-- Removed 5 unused white buttons -->
+                </HBox>
+            </HBox>
+
+            <!-- Main Navigation with Glass Effect -->
+            <HBox alignment="CENTER" spacing="20" styleClass="main-nav">
+                <padding>
+                    <Insets bottom="12" left="20" right="20" top="12" />
+                </padding>
+                
+                <Button styleClass="nav-btn" text="Films" />
+                <Button styleClass="nav-btn" text="Bénévolat" />
+                <Button styleClass="nav-btn" text="Reclamations" />
+                <Button styleClass="nav-btn" text="Blogs" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button onAction="#handleMenuClick" styleClass="nav-btn" text="Menu" />
+                <Button onAction="#handlePanierClick" styleClass="nav-btn" text="Panier" alignment="CENTER_RIGHT"/>
+                <Button styleClass="logout-btn" text="Logout">
+                    <graphic>
+                        <ImageView fitHeight="14" fitWidth="14">
+                            <Image url="@icons/logout.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="30" alignment="CENTER">
+                <padding>
+                    <Insets top="30.0" right="40.0" bottom="30.0" left="40.0"/>
+                </padding>
+
+                <VBox spacing="25" style="-fx-background-color: rgba(25, 25, 35, 0.8); -fx-padding: 30.0; -fx-background-radius: 15;">
+                    <effect>
+                        <DropShadow height="20.0" radius="9.5" spread="0.2" width="20.0">
+                            <color>
+                                <Color opacity="0.7" />
+                            </color>
+                        </DropShadow>
+                    </effect>
+                    
+                    <Label text="Make a Reservation" styleClass="main-title" />
+                    
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <ImageView fitWidth="35" fitHeight="35" preserveRatio="true">
+                            <Image url="@/com/cinema/images/movie-icon.png"/>
+                        </ImageView>
+                        <Text text="Book Your Movie Experience" style="-fx-font-size: 22; -fx-font-weight: bold; -fx-fill: #e2b616;">
+                            <effect>
+                                <DropShadow color="#00000060" radius="3" spread="0.1" />
+                            </effect>
+                        </Text>
+                    </HBox>
+                    
+                    <Separator style="-fx-background-color: #2a2a40; -fx-opacity: 0.6;"/>
+                    
+                    <GridPane hgap="20" vgap="25" styleClass="form-grid">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="150" prefWidth="180" />
+                            <ColumnConstraints minWidth="300" prefWidth="400" hgrow="ALWAYS" />
+                        </columnConstraints>
+            
+                        <!-- Film dropdown with icon -->
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <Image url="@/com/cinema/images/film-icon.png"/>
+                            </ImageView>
+                            <Label text="Select Movie:" style="-fx-font-weight: bold; -fx-text-fill: #e2b616; -fx-font-size: 16;"/>
+                        </HBox>
+                        <HBox spacing="15" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <ComboBox fx:id="filmCombo" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                      style="-fx-background-color: rgba(40, 40, 60, 0.6); -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 15; -fx-border-color: #3d3d5c; -fx-border-radius: 8; -fx-border-width: 1;" />
+                            <Label fx:id="filmLabel" text="Avengers: Endgame" visible="false" 
+                                   style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        </HBox>
+
+                        <!-- Salle dropdown with icon -->
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <Image url="@/com/cinema/images/theater-icon.png"/>
+                            </ImageView>
+                            <Label text="Select Theater:" style="-fx-font-weight: bold; -fx-text-fill: #e2b616; -fx-font-size: 16;"/>
+                        </HBox>
+                        <HBox spacing="15" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <ComboBox fx:id="salleCombo" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                      style="-fx-background-color: rgba(40, 40, 60, 0.6); -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 15; -fx-border-color: #3d3d5c; -fx-border-radius: 8; -fx-border-width: 1;" />
+                            <Label fx:id="salleLabel" text="Salle 1 - VIP" visible="false" 
+                                   style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        </HBox>
+
+                        <!-- Association dropdown with icon -->
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <Image url="@/com/cinema/images/association-icon.png"/>
+                            </ImageView>
+                            <Label text="Select Association:" style="-fx-font-weight: bold; -fx-text-fill: #e2b616; -fx-font-size: 16;"/>
+                        </HBox>
+                        <HBox spacing="15" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <ComboBox fx:id="associationCombo" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                                      style="-fx-background-color: rgba(40, 40, 60, 0.6); -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 15; -fx-border-color: #3d3d5c; -fx-border-radius: 8; -fx-border-width: 1;" />
+                            <Label fx:id="associationLabel" visible="false" 
+                                   style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        </HBox>
+
+                        <!-- Hidden fields for IDs -->
+                        <TextField fx:id="filmIdField" visible="false" managed="false" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                        <TextField fx:id="salleIdField" visible="false" managed="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="associationIdField" visible="false" managed="false" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+
+                        <!-- Date Picker with icon -->
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <Image url="@/com/cinema/images/calendar-icon.png"/>
+                            </ImageView>
+                            <Label text="Select Date:" style="-fx-font-weight: bold; -fx-text-fill: #e2b616; -fx-font-size: 16;"/>
+                        </HBox>
+                        <DatePicker fx:id="dateReservationPicker" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="Infinity" 
+                                  style="-fx-background-color: rgba(40, 40, 60, 0.6); -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 8 12; -fx-border-color: #3d3d5c; -fx-border-radius: 8; -fx-border-width: 1;"/>
+                        
+                        <!-- Seat Type with icon -->
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <Image url="@/com/cinema/images/seat-icon.png"/>
+                            </ImageView>
+                            <Label text="Seat Type:" style="-fx-font-weight: bold; -fx-text-fill: #e2b616; -fx-font-size: 16;"/>
+                        </HBox>
+                        <ComboBox fx:id="typePlaceCombo" GridPane.columnIndex="1" GridPane.rowIndex="5" maxWidth="Infinity" 
+                                style="-fx-background-color: rgba(40, 40, 60, 0.6); -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 15; -fx-border-color: #3d3d5c; -fx-border-radius: 8; -fx-border-width: 1;"/>
+
+                        <!-- Number of Seats with icon -->
+                        <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="7">
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <Image url="@/com/cinema/images/tickets-icon.png"/>
+                            </ImageView>
+                            <Label text="Number of Seats:" style="-fx-font-weight: bold; -fx-text-fill: #e2b616; -fx-font-size: 16;"/>
+                        </HBox>
+                        <Spinner fx:id="nombrePlacesSpinner" GridPane.columnIndex="1" GridPane.rowIndex="7" maxWidth="Infinity" 
+                               style="-fx-background-color: rgba(40, 40, 60, 0.6); -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 8 12; -fx-border-color: #3d3d5c; -fx-border-radius: 8; -fx-border-width: 1;"/>
+
+                        <!-- Select Seats Button (Popup) -->
+                        <Label text="Select your seats:" GridPane.columnIndex="0" GridPane.rowIndex="8" style="-fx-font-weight: bold; -fx-text-fill: #ffd700; -fx-font-size: 15;"/>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="8" spacing="10">
+                            <Button fx:id="selectSeatsButton" text="Select Seats" onAction="#handleSelectSeats" style="-fx-background-color: #e2b616; -fx-text-fill: #222; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                            <Label fx:id="selectedSeatsLabel" text="" style="-fx-font-size: 12px; -fx-text-fill: #333;"/>
+                            <GridPane fx:id="seatsGrid" hgap="5" vgap="5" style="-fx-padding: 10;" />
+                        </VBox>
+
+                        <!-- Hidden Status ComboBox -->
+                        <ComboBox fx:id="statusCombo" visible="false" managed="false" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                    </GridPane>
+                    
+                    <HBox spacing="25" alignment="CENTER" style="-fx-padding: 20.0 0 0 0;">
+                        <Button fx:id="confirmButton" text="Confirm Reservation" onAction="#handleConfirm" styleClass="search-btn">
+                            <graphic>
+                                <ImageView fitHeight="20" fitWidth="20">
+                                    <Image url="@/com/cinema/images/confirm-icon.png"/>
+                                </ImageView>
+                            </graphic>
+                            <effect>
+                                <DropShadow height="10.0" radius="4.5" width="10.0">
+                                    <color>
+                                        <Color opacity="0.3" />
+                                    </color>
+                                </DropShadow>
+                            </effect>
+                        </Button>
+                        <!-- Proceed to Payment button removed as per user request -->
+                    </HBox>
+                </VBox>
+                
+                <!-- Movie ticket design at the bottom -->
+                <HBox alignment="CENTER" style="-fx-padding: 30.0 0 0 0;">
+                    <VBox style="-fx-background-color: rgba(25, 25, 35, 0.5); -fx-padding: 15.0; -fx-background-radius: 10; -fx-border-color: #e2b616; -fx-border-radius: 10; -fx-border-width: 1;">
+                        <HBox alignment="CENTER">
+                            <Text text="Cinema Reservation - Your Ultimate Movie Experience" style="-fx-fill: #e2b616; -fx-font-size: 14;">
+                                <effect>
+                                    <Glow level="0.3"/>
+                                </effect>
+                            </Text>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 15;">
+            <Text text=" 2025 CinémaRéservation - The Ultimate Cinema Experience" style="-fx-fill: #6c757d; -fx-font-size: 12;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

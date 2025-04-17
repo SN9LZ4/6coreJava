@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20" alignment="CENTER" style="-fx-background-color:rgb(214, 59, 59);" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.cinema.controller.HomeController">
+    
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Text text="Cinema Reservation System" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    
+    <VBox spacing="15" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label text="Welcome to our Cinema" style="-fx-font-size: 18;"/>
+        <Button text="Make a Reservation" onAction="#handleMakeReservation" 
+                style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10 20;"/>
+    </VBox>
+    
+</VBox>

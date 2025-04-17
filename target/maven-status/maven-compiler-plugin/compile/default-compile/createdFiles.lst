@@ -1,0 +1,16 @@
+com\cinema\model\Film.class
+com\cinema\controller\PanierController$1.class
+com\cinema\controller\PaymentController.class
+com\cinema\controller\PanierController.class
+com\cinema\MainApp.class
+com\cinema\controller\ReservationController$1.class
+com\cinema\controller\FrontController.class
+com\cinema\model\Salle.class
+com\cinema\controller\ReservationController$2.class
+com\cinema\controller\ReservationController.class
+com\cinema\model\Association.class
+com\cinema\model\Reservation.class
+com\cinema\util\DatabaseConnection.class
+com\cinema\controller\ReservationController$1$1.class
+com\cinema\util\DatabaseInspector.class
+com\cinema\util\dbtest.class

@@ -1,0 +1,174 @@
+package com.cinema.controller;
+
+import com.cinema.model.Reservation;
+import com.cinema.util.DatabaseConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+public class ReservationController implements Initializable {
+    @FXML private TextField titreField;
+    @FXML private DatePicker dateReservationPicker;
+    @FXML private ComboBox<String> typePlaceCombo;
+    @FXML private Spinner<Integer> nombrePlacesSpinner;
+    @FXML private ComboBox<String> statusCombo;
+    @FXML private ComboBox<String> filmCombo;
+    @FXML private ComboBox<String> salleCombo;
+    @FXML private TextField selectedSeatsField;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Initialize ComboBoxes
+        typePlaceCombo.setItems(FXCollections.observableArrayList("Standard", "VIP", "Premium"));
+        statusCombo.setValue("Pending"); // Set default status
+        
+        // Initialize Spinner
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
+        nombrePlacesSpinner.setValueFactory(valueFactory);
+
+        // Load data
+        loadFilms();
+        loadSalles();
+    }
+
+    @FXML
+    private void handleConfirm() {
+        try {
+            // Save reservation to database
+            saveReservation();
+            
+            // Navigate to home
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/cinema/home.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) filmCombo.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handlePayment() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/cinema/payment.fxml"));
+            Parent root = loader.load();
+            
+            PaymentController paymentController = loader.getController();
+            paymentController.setReservationDetails(
+                filmCombo.getValue(),
+                dateReservationPicker.getValue().toString(),
+                selectedSeatsField.getText(),
+                typePlaceCombo.getValue(),
+                calculateAmount()
+            );
+            
+            Stage stage = (Stage) filmCombo.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFilms() {
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT id FROM film")) {
+            
+            ObservableList<String> films = FXCollections.observableArrayList();
+            while (rs.next()) {
+                // Use ID as the display text since titre should be retrieved by ID
+                films.add("Film " + rs.getInt("id"));
+            }
+            filmCombo.setItems(films);
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Error loading films: " + e.getMessage());
+        }
+    }
+
+    private void loadSalles() {
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT id FROM salle")) {
+            
+            ObservableList<String> salles = FXCollections.observableArrayList();
+            while (rs.next()) {
+                // Use ID as the display text
+                salles.add("Salle " + rs.getInt("id"));
+            }
+            salleCombo.setItems(salles);
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Error loading salles: " + e.getMessage());
+        }
+    }
+
+    private void saveReservation() {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "INSERT INTO reservation (film_id, salle_id, date_reservation, type_place, nombre_places, status, selected_seats) VALUES (?, ?, ?, ?, ?, ?, ?)";            
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                // Extract film ID from the combo box value ("Film X" -> X)
+                String filmValue = filmCombo.getValue();
+                int filmId = Integer.parseInt(filmValue.substring(filmValue.lastIndexOf(" ") + 1));
+                
+                // Extract salle ID from the combo box value ("Salle X" -> X)
+                String salleValue = salleCombo.getValue();
+                int salleId = Integer.parseInt(salleValue.substring(salleValue.lastIndexOf(" ") + 1));
+                
+                pstmt.setInt(1, filmId);
+                pstmt.setInt(2, salleId);
+                pstmt.setDate(3, java.sql.Date.valueOf(dateReservationPicker.getValue()));
+                pstmt.setString(4, typePlaceCombo.getValue());
+                pstmt.setInt(5, nombrePlacesSpinner.getValue());
+                pstmt.setString(6, "Pending");
+                pstmt.setString(7, selectedSeatsField.getText());
+                
+                pstmt.executeUpdate();
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Reservation saved successfully!");
+            }
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Error saving reservation: " + e.getMessage());
+        }
+    }
+
+    private String calculateAmount() {
+        double basePrice = 10.0; // Base price for Standard seats
+        if (typePlaceCombo.getValue().equals("VIP")) {
+            basePrice = 20.0;
+        } else if (typePlaceCombo.getValue().equals("Premium")) {
+            basePrice = 15.0;
+        }
+        
+        double total = basePrice * nombrePlacesSpinner.getValue();
+        return String.format("%.2f €", total);
+    }
+
+    private void clearFields() {
+        titreField.clear();
+        dateReservationPicker.setValue(null);
+        typePlaceCombo.setValue(null);
+        nombrePlacesSpinner.getValueFactory().setValue(1);
+        statusCombo.setValue(null);
+        filmCombo.setValue(null);
+        selectedSeatsField.clear();
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.AfficherSalleController"
+            prefHeight="700.0" prefWidth="1100.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);">
+
+    <SplitPane dividerPositions="0.25" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <Button fx:id="ajouterButton" text="Ajouter Salle" layoutX="650" layoutY="20" />
+
+        <items>
+            <!-- Left Side - Salle List -->
+            <VBox spacing="15" style="-fx-padding: 15; -fx-background-color: white; -fx-background-radius: 10;">
+                <Label text="Liste des Salles" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-text-fill: #2c3e50;">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Label>
+                <ListView fx:id="salleListView" prefWidth="250" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #dfe6e9;"
+                          fixedCellSize="35"/>
+            </VBox>
+
+            <!-- Right Side - Salle Details -->
+            <VBox spacing="20" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
+                <HBox spacing="30" alignment="TOP_LEFT">
+                    <!-- Salle Poster -->
+                    <VBox spacing="10" alignment="CENTER">
+                        <ImageView fx:id="salleImageView" fitWidth="200" fitHeight="300" preserveRatio="true"
+                                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);"/>
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button fx:id="modifyButton" text="Modifier"
+                                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                            <Button fx:id="deleteButton" text="Supprimer"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Salle Details -->
+                    <GridPane hgap="15" vgap="15" style="-fx-padding: 10;">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+                            <ColumnConstraints minWidth="250"/>
+                        </columnConstraints>
+
+                        <Label text="Nom:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                        <Label fx:id="nomLabel" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+                        <Label text="Nombre de Places:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.rowIndex="1"/>
+                        <Label fx:id="placesLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size: 14px;"/>
+
+                        <Label text="Type:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.rowIndex="2"/>
+                        <Label fx:id="typeLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-size: 14px;"/>
+
+                        <Label text="État:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" GridPane.rowIndex="3"/>
+                        <Label fx:id="etatLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 14px;"/>
+                    </GridPane>
+                </HBox>
+
+                <!-- Description Section -->
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <Label text="Description" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
+                    <WebView fx:id="descriptionWebView" prefHeight="200" style="-fx-border-radius: 5; -fx-border-color: #dfe6e9;"/>
+                </VBox>
+            </VBox>
+        </items>
+    </SplitPane>
+
+    <!-- Bottom Navigation -->
+    <HBox spacing="15" alignment="BOTTOM_RIGHT" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20">
+        <Button fx:id="retourButton" text="Retour"
+                style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 25; -fx-background-radius: 5;"/>
+    </HBox>
+</AnchorPane>

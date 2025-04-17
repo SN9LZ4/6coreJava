@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.DetailArticle"
+            prefHeight="800.0" prefWidth="1000.0"
+            style="-fx-background-color: #ffffff;">
+
+    <!-- NAV BAR ROUGE -->
+    <HBox alignment="CENTER_LEFT" spacing="15"
+          prefHeight="60" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          style="-fx-background-color: rgb(255,0,0); -fx-padding: 0 20 0 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 2);">
+        <Label text="📖 Détail de l’article"
+               style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+
+        <Pane HBox.hgrow="ALWAYS"/>
+
+        <Button text="⬅ Retour"
+                onAction="#handleRetour"
+                style="-fx-background-color: white; -fx-text-fill: red; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 5 15;"/>
+    </HBox>
+
+    <!-- CONTENU -->
+    <HBox spacing="40" alignment="TOP_CENTER"
+          AnchorPane.topAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+
+        <!-- Partie gauche : Commentaires -->
+        <VBox spacing="20" alignment="TOP_LEFT" prefWidth="400">
+            <Label text="Ajouter un commentaire"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0d1b2a;"/>
+
+            <TextArea fx:id="commentaireTextArea" promptText="Écrire un commentaire..." prefRowCount="3"
+                      style="-fx-font-size: 14px; -fx-text-fill: #333333; -fx-background-radius: 10; -fx-border-color: #ccc; -fx-border-radius: 10;"/>
+
+            <Button text="Commenter" onAction="#handleComment"
+                    style="-fx-background-color: #ea1111; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 20;"/>
+
+            <Label text="Commentaires " style="-fx-font-size: 16px; -fx-text-fill: #0d1b2a; -fx-font-weight: bold;"/>
+
+            <ScrollPane fitToWidth="true" prefHeight="400" style="-fx-background-color: transparent;">
+                <VBox fx:id="commentairesContainer" spacing="15" style="-fx-padding: 10;">
+                    <!-- Exemple dynamique -->
+                    <HBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 10;">
+                        <ImageView fitHeight="40" fitWidth="40" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.2, 0, 1);">
+                            <image>
+                                <Image url="@images/inconnu.png" />
+                            </image>
+                        </ImageView>
+                        <VBox spacing="5">
+                            <Label text="Nom de l'utilisateur" style="-fx-font-weight: bold; -fx-text-fill: #0d1b2a;"/>
+                            <Label text="Contenu du commentaire..." wrapText="true" style="-fx-text-fill: #444; -fx-font-size: 13px;"/>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <ImageView fitWidth="20" fitHeight="20" style="-fx-cursor: hand;">
+                                    <image>
+                                        <Image url="@images/like.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitWidth="20" fitHeight="20" style="-fx-cursor: hand;">
+                                    <image>
+                                        <Image url="@images/edit.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitWidth="20" fitHeight="20" style="-fx-cursor: hand;">
+                                    <image>
+                                        <Image url="@images/delete.png" />
+                                    </image>
+                                </ImageView>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+
+        <!-- Partie droite : Article -->
+        <VBox spacing="20" alignment="TOP_LEFT" prefWidth="500">
+            <Label fx:id="titleLabel"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0d1b2a;"/>
+
+            <ImageView fx:id="articleImage" fitWidth="450" fitHeight="250" preserveRatio="true"
+                       style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0.3, 0, 2); -fx-border-radius: 10;"/>
+
+            <VBox spacing="10" style="-fx-background-color: #f1f1f1; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;">
+                <Label fx:id="categorieLabel"
+                       style="-fx-font-size: 14px; -fx-text-fill: #6c757d;"/>
+                <Label fx:id="dateLabel"
+                       style="-fx-font-size: 14px; -fx-text-fill: #6c757d;"/>
+                <Label fx:id="contenuLabel" wrapText="true"
+                       style="-fx-font-size: 15px; -fx-text-fill: #333333;"/>
+            </VBox>
+        </VBox>
+    </HBox>
+</AnchorPane>

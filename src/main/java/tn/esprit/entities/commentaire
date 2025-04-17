@@ -1,0 +1,208 @@
+package tn.esprit.entities;
+
+import tn.esprit.entities.commentaire;
+import tn.esprit.entities.article;
+import tn.esprit.entities.User;
+import tn.esprit.Tools.MyData; // Assuming this is where your database connection is
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class commentaireService {
+
+    private Connection cnx;  // Use a class-level Connection
+
+    public commentaireService() {
+        this.cnx = MyData.getConnection(); // Initialize in the constructor
+    }
+
+    // Method to add a comment
+    public boolean addComment(commentaire commentaire) {
+        String sql = "INSERT INTO commentaires (contenuCom, date, article_id, user_id) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement pst = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pst.setString(1, commentaire.getContenuCom());
+            pst.setTimestamp(2, new java.sql.Timestamp(commentaire.getDate().getTime()));
+            pst.setInt(3, commentaire.getArticle().getId()); // Assuming Article has getId()
+            pst.setInt(4, commentaire.getUser().getUser_id());
+
+            int rows = pst.executeUpdate();
+            if (rows > 0) {
+                ResultSet rs = pst.getGeneratedKeys();
+                if (rs.next()) {
+                    commentaire.setId(rs.getInt(1));
+                    System.out.println("✅ Commentaire ajouté avec ID : " + commentaire.getId());
+                }
+                return true;
+            } else {
+                System.out.println("⚠️ Échec de l'ajout du commentaire.");
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // **Important:** Log the error!
+            return false; //  Consider throwing a custom exception.
+        }
+    }
+
+
+    // Method to remove a comment (role verification)
+    public boolean removeComment(int id, User user) {
+        // Check if the user is an admin or the owner of the comment
+        if (user.isAdmin() || userOwnsComment(user, id)) {
+            String sql = "DELETE FROM commentaires WHERE id = ?";
+            try (PreparedStatement stmt = cnx.prepareStatement(sql)) { // Use the class's connection
+                stmt.setInt(1, id);
+
+                int rowsAffected = stmt.executeUpdate();
+                if(rowsAffected > 0){
+                    System.out.println("✅ Commentaire supprimé avec ID : " + id);
+                }
+                else{
+                    System.out.println("⚠️ Échec de la suppression du commentaire.");
+                }
+                return rowsAffected > 0;
+            } catch (SQLException e) {
+                e.printStackTrace(); // **Important:** Log the error!
+                return false; //  Consider throwing a custom exception.
+            }
+        } else {
+            System.out.println("Permission denied. You must be an admin or the owner of the comment.");
+            return false;
+        }
+    }
+
+    // Method to edit a comment (user can only edit their own comments)
+    public boolean editComment(commentaire commentaire, User user) {
+        // Check if the user is the same as the one who created the comment
+        if (commentaire.getUser().getUser_id() == user.getUser_id() || user.isAdmin()) {
+            String sql = "UPDATE commentaires SET contenuCom = ?, date = ? WHERE id = ?";
+            try (PreparedStatement stmt = cnx.prepareStatement(sql)) {  // Use the class's connection
+                stmt.setString(1, commentaire.getContenuCom());
+                stmt.setTimestamp(2, new Timestamp(commentaire.getDate().getTime()));
+                stmt.setInt(3, commentaire.getId());
+
+                int rowsAffected = stmt.executeUpdate();
+                if(rowsAffected > 0){
+                    System.out.println("✅ Commentaire modifié avec ID : " + commentaire.getId());
+                }
+                else{
+                    System.out.println("⚠️ Échec de la modification du commentaire.");
+                }
+                return rowsAffected > 0;
+            } catch (SQLException e) {
+                e.printStackTrace(); // **Important:** Log the error!
+                return false; //  Consider throwing a custom exception.
+            }
+        } else {
+            System.out.println("You can only edit your own comments.");
+            return false;
+        }
+    }
+
+    // Method to view a comment by its ID
+    public commentaire viewComment(int id) {
+        String sql = "SELECT * FROM commentaires WHERE id = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) { // Use the class's connection
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String contenuCom = rs.getString("contenuCom");
+                Timestamp date = rs.getTimestamp("date");
+                int articleId = rs.getInt("article_id");
+                int userId = rs.getInt("user_id");
+
+                article article = getArticleById(articleId);
+                User user = getUserById(userId);
+
+                return new commentaire(id, contenuCom, new java.util.Date(date.getTime()), article, user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // **Important:** Log the error!
+            return null; //  Consider throwing a custom exception.
+        }
+        return null;
+    }
+
+    // Method to list all comments for an article
+    public List<commentaire> listCommentsByArticle(int articleId) {
+        List<commentaire> commentaires = new ArrayList<>();
+        String sql = "SELECT * FROM commentaires WHERE article_id = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) { // Use the class's connection
+            stmt.setInt(1, articleId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String contenuCom = rs.getString("contenuCom");
+                Timestamp date = rs.getTimestamp("date");
+                int userId = rs.getInt("user_id");
+
+                article article = getArticleById(articleId);
+                User user = getUserById(userId);
+
+                commentaires.add(new commentaire(id, contenuCom, new java.util.Date(date.getTime()), article, user));
+            }
+            return commentaires;
+        } catch (SQLException e) {
+            e.printStackTrace(); // **Important:** Log the error!
+            return null; //  Consider throwing a custom exception.
+        }
+    }
+
+    // Method to check if the user owns the comment
+    private boolean userOwnsComment(User user, int commentId) {
+        String sql = "SELECT user_id FROM commentaires WHERE id = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) { // Use the class's connection
+            stmt.setInt(1, commentId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int userId = rs.getInt("user_id");
+                return user.getUser_id() == userId;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // **Important:** Log the error!
+            return false; //  Consider throwing a custom exception.
+        }
+        return false;
+    }
+
+    // Method to get an article by its ID
+    private article getArticleById(int articleId) {
+        String sql = "SELECT * FROM article WHERE id = ?"; // Corrected SQL query
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
+            stmt.setInt(1, articleId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                article a = new article();
+                a.setId(rs.getInt("id"));
+                a.setTitre(rs.getString("titre"));
+                // Set other article fields as needed
+                return a;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    private User getUserById(int userId) {
+        String sql = "SELECT * FROM user WHERE User_id = ?"; // Corrected SQL query and column name
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User u = new User();
+                u.setUser_id(rs.getInt("User_id")); // Corrected column name
+                // Set other user fields as needed
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+}

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane stylesheets="@styles/dashboard.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminDashboard">
+
+    <top>
+        <HBox styleClass="header">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <Label styleClass="header-title" text="CHOUFLIFILM" />
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox spacing="10" styleClass="header-right-box" alignment="CENTER">
+                <Region HBox.hgrow="ALWAYS" />
+                <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field" />
+                <Button fx:id="btnNotification" styleClass="profile-button" text="🔔" />
+                <Button fx:id="btnLogout" styleClass="logout-button" text="🚪 Déconnexion" />
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+            <VBox styleClass="sidebar-logo-box">
+                <ImageView fx:id="logoImage" fitHeight="100" fitWidth="200" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo.png" />
+                    </image>
+                </ImageView>
+            </VBox>
+            <Separator styleClass="sidebar-separator" />
+            <VBox spacing="10">
+                <Button fx:id="btnDashboard" maxWidth="Infinity" styleClass="menu-button" text="📊 Tableau de bord" />
+                <Button fx:id="btnUsers" maxWidth="Infinity" styleClass="menu-button" text="👥 Gestion Utilisateurs" />
+                <Button fx:id="btnReclamations" maxWidth="Infinity" styleClass="menu-button" text="⚠️Réclamations" />
+                <Button fx:id="btnActualites" maxWidth="Infinity" styleClass="menu-button" text="📰 Actualités" onAction="#ouvrirAfficherArticle" />
+                <Button fx:id="btnFinance" maxWidth="Infinity" styleClass="menu-button" text="💰 Finance" />
+                <Button fx:id="btnProjections" maxWidth="Infinity" styleClass="menu-button" text="🎬 Projections" />
+                <Button fx:id="btnAssociations" maxWidth="Infinity" styleClass="menu-button" text="🤝 Associations" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="dashboard-scroll">
+            <VBox spacing="20" styleClass="dashboard-content">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+
+                <!-- Statistics Cards -->
+                <HBox spacing="30" alignment="CENTER" styleClass="stats-cards">
+                    <VBox alignment="CENTER" spacing="10" styleClass="stat-card card">
+                        <Label text="👤" styleClass="stat-icon" />
+                        <Label fx:id="lblUserCount" styleClass="stat-value" text="1,234" />
+                        <Label styleClass="stat-label" text="Utilisateurs" />
+                        <Label styleClass="stat-trend positive" text="+12.5%" />
+                    </VBox>
+
+                    <VBox alignment="CENTER" spacing="10" styleClass="stat-card card">
+                        <Label text="🎬" styleClass="stat-icon" />
+                        <Label fx:id="lblFilmCount" styleClass="stat-value" text="45" />
+                        <Label styleClass="stat-label" text="Films" />
+                        <Label styleClass="stat-trend positive" text="+8.3%" />
+                    </VBox>
+
+                    <VBox alignment="CENTER" spacing="10" styleClass="stat-card card">
+                        <Label text="📅" styleClass="stat-icon" />
+                        <Label fx:id="lblReservationCount" styleClass="stat-value" text="892" />
+                        <Label styleClass="stat-label" text="Réservations" />
+                        <Label styleClass="stat-trend negative" text="-2.7%" />
+                    </VBox>
+
+                    <VBox alignment="CENTER" spacing="10" styleClass="stat-card card">
+                        <Label text="💰" styleClass="stat-icon" />
+                        <Label fx:id="lblRevenue" styleClass="stat-value" text="15,750 DT" />
+                        <Label styleClass="stat-label" text="Revenus" />
+                        <Label styleClass="stat-trend positive" text="+10.2%" />
+                    </VBox>
+                </HBox>
+
+                <!-- Charts Section -->
+                <VBox spacing="20" styleClass="charts-section">
+                    <HBox spacing="20">
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                            <TitledPane animated="false" collapsible="false" text="Revenus mensuels">
+                                <LineChart fx:id="revenueLineChart" legendVisible="true">
+                                    <xAxis>
+                                        <CategoryAxis label="Mois" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Revenus (DT)" />
+                                    </yAxis>
+                                </LineChart>
+                            </TitledPane>
+                        </VBox>
+
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                            <TitledPane animated="false" collapsible="false" text="Distribution des genres">
+                                <PieChart fx:id="genrePieChart" />
+                            </TitledPane>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="20">
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                            <TitledPane animated="false" collapsible="false" text="Réservations par salle">
+                                <BubbleChart fx:id="reservationBubbleChart">
+                                    <xAxis>
+                                        <NumberAxis label="Jour" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Heure" />
+                                    </yAxis>
+                                </BubbleChart>
+                            </TitledPane>
+                        </VBox>
+
+                        <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                            <TitledPane animated="false" collapsible="false" text="Tendance des revenus">
+                                <AreaChart fx:id="revenueAreaChart">
+                                    <xAxis>
+                                        <CategoryAxis label="Jour" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Revenus (DT)" />
+                                    </yAxis>
+                                </AreaChart>
+                            </TitledPane>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Tables Section -->
+                <HBox spacing="20" styleClass="tables-section">
+                    <VBox spacing="10" styleClass="card" HBox.hgrow="ALWAYS">
+                        <Label styleClass="section-title" text="Activités récentes" />
+                        <TableView fx:id="activityTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colDate" text="Date" />
+                                <TableColumn fx:id="colAction" text="Action" />
+                                <TableColumn fx:id="colDetails" text="Détails" />
+                            </columns>
+                        </TableView>
+                        <Button styleClass="view-all-button" text="Voir toutes les activités" />
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="card" HBox.hgrow="ALWAYS">
+                        <Label styleClass="section-title" text="Films populaires" />
+                        <TableView fx:id="movieTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colTitle" text="Titre" />
+                                <TableColumn fx:id="colBookings" text="Réservations" />
+                                <TableColumn fx:id="colRating" text="Note" />
+                            </columns>
+                        </TableView>
+                        <Button styleClass="view-all-button" text="Voir tous les films" />
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

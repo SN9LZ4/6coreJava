@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controller.ShareDialog"
+      spacing="10"
+      styleClass="share-dialog">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <Label text="Share Article" styleClass="dialog-title"/>
+    
+    <VBox fx:id="shareContainer" spacing="10"/>
+    
+</VBox>

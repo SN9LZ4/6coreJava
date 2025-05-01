@@ -1,0 +1,214 @@
+/* Variables */
+* {
+    -fx-blue-100: #E3F2FD;
+    -fx-blue-200: #90CAF9;
+    -fx-blue-300: #64B5F6;
+    -fx-blue-400: #42A5F5;
+    -fx-blue-500: #2196F3;
+    -fx-blue-600: #1E88E5;
+    -fx-blue-700: #1976D2;
+    -fx-blue-800: #1565C0;
+    -fx-blue-900: #0D47A1;
+    -fx-dark-blue: #0D47A1; /* Ajout de la variable manquante */
+}
+
+/* Styles pour les axes */
+.axis {
+    -fx-tick-label-fill: -fx-dark-blue;
+    -fx-tick-length: 10;
+}
+
+.axis-label {
+    -fx-text-fill: -fx-dark-blue;
+    -fx-font-size: 14px;
+}
+
+/* Reste du CSS inchangé */
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0, 0, 4);
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.15), 20, 0, 0, 6);
+    -fx-translate-y: -3;
+}
+
+.stat-card-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-dark-blue;
+}
+
+.stat-value {
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-blue-700;
+}
+
+.stat-subtitle {
+    -fx-font-size: 14;
+    -fx-text-fill: -fx-blue-400;
+}
+
+/* Styles pour les graphiques */
+.chart {
+    -fx-padding: 10px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #eee;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #eee;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: -fx-blue-500;
+}
+
+.chart-bar:hover {
+    -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.3), 8, 0, 0, 2);
+}
+
+/* Styles for the PieChart in ArticleStats.fxml */
+.default-color0.chart-pie { -fx-pie-color: -fx-blue-500; } /* Likes - Medium blue */
+.default-color1.chart-pie { -fx-pie-color: -fx-blue-200; } /* Dislikes - Light blue */
+
+/* Additional styling for pie chart */
+.chart-pie-label {
+    -fx-fill: -fx-dark-blue;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, 1%);
+    -fx-border-width: 0px;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: -fx-blue-400;
+    -fx-fill: -fx-blue-400;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 20px;
+}
+
+.chart-legend-item {
+    -fx-text-fill: -fx-blue-900;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-radius: 5px;
+}
+
+/* Tooltip styling */
+.tooltip {
+    -fx-background-color: -fx-blue-900;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 6px;
+}
+
+/* Styles pour la pagination */
+.custom-pagination {
+    -fx-padding: 10px;
+}
+
+.custom-pagination .pagination-control {
+    -fx-spacing: 10;
+}
+
+.custom-pagination .page-button {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+}
+
+.custom-pagination .page-button:hover {
+    -fx-background-color: #e3efff;
+    -fx-border-color: #1a73e8;
+}
+
+.custom-pagination .page-button:selected {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: white;
+    -fx-border-color: #1a73e8;
+}
+
+.custom-pagination .arrow-button {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 5;
+    -fx-cursor: hand;
+}
+
+.custom-pagination .arrow-button:hover {
+    -fx-background-color: #e3efff;
+    -fx-border-color: #1a73e8;
+}
+
+.custom-pagination .arrow {
+    -fx-background-color: #666;
+}
+
+.custom-pagination .arrow-button:hover .arrow {
+    -fx-background-color: #1a73e8;
+}
+
+/* ScrollPane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0 0 0 5;
+}
+
+.scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #1a73e8;
+    -fx-background-radius: 5;
+    -fx-opacity: 0.6;
+}
+
+.scroll-pane > .scroll-bar:vertical > .thumb:hover {
+    -fx-opacity: 0.8;
+}
+
+.scroll-pane > .scroll-bar:vertical > .increment-button,
+.scroll-pane > .scroll-bar:vertical > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+/* Ensure the sidebar stays fixed height */
+.sidebar {
+    -fx-min-height: 100%;
+}

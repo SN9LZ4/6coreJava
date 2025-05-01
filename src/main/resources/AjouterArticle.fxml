@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.AjouterArticle" stylesheets="@styles/article.css">
+    <children>
+        <Pane mouseTransparent="true">
+            <children>
+                <Circle centerX="100" centerY="200" fill="rgba(100,149,237,0.08)" radius="120.0" />
+                <Circle centerX="850" centerY="300" fill="rgba(100,149,237,0.12)" radius="180.0" />
+            </children>
+        </Pane>
+
+        <HBox spacing="0" style="-fx-background-color: transparent;">
+            <VBox spacing="20.0" style="-fx-background-color: white; -fx-pref-width: 250.0; -fx-padding: 30.0 20.0;">
+                <children>
+                    <ImageView fitHeight="120.0" fitWidth="140.0">
+                        <image>
+                            <Image url="@images/logo.png" />
+                        </image>
+                    </ImageView>
+
+                    <VBox spacing="12.0">
+                        <children>
+                            <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Dashboard" />
+                            <Button style="-fx-background-color: #e3efff; -fx-text-fill: #1a73e8; -fx-font-weight: bold; -fx-font-size: 16.0; -fx-background-radius: 10.0;" text="Articles" />
+                            <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Utilisateurs" />
+                            <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Réclamations" />
+                            <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Finance" />
+                            <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Bénévolat" />
+                            <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Projections" />
+                        </children>
+                    </VBox>
+
+                    <Region VBox.vgrow="ALWAYS" />
+
+                    <Button style="-fx-background-color: linear-gradient(to right, #6495ED, #4169E1); -fx-background-radius: 30.0; -fx-text-fill: white; -fx-font-size: 16.0; -fx-font-weight: bold;" text="LOGOUT">
+                        <graphic>
+                            <StackPane>
+                                <children>
+                                    <Circle fill="white" radius="12.0" stroke="#6495ED" strokeWidth="2.0" />
+                                    <Label style="-fx-text-fill: #6495ED; -fx-font-size: 16.0; -fx-font-weight: bold;" text="🔓" />
+                                </children>
+                            </StackPane>
+                        </graphic>
+                    </Button>
+                </children>
+            </VBox>
+
+            <VBox alignment="TOP_CENTER" spacing="25.0" style="-fx-padding: 40.0 50.0;" VBox.vgrow="ALWAYS">
+                <children>
+                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                        <children>
+                            <ImageView fitHeight="32.0" fitWidth="32.0">
+                                <image>
+                                    <Image url="@images/blog.png" />
+                                </image>
+                            </ImageView>
+                            <Label style="-fx-font-size: 28.0; -fx-text-fill: #1a73e8; -fx-font-weight: bold;" text="Ajouter un Article" />
+                        </children>
+                    </HBox>
+
+                    <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                        <content>
+                            <VBox alignment="TOP_CENTER" maxWidth="600.0" spacing="20.0" style="-fx-padding: 20.0;">
+                                <VBox style="-fx-background-color: white; -fx-padding: 20.0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10.0, 0.0, 0.0, 2.0); -fx-background-radius: 10.0;">
+                                    <children>
+                                        <Label style="-fx-font-size: 18.0; -fx-font-weight: bold; -fx-text-fill: #333;" text="Ajouter un Article">
+                                            <padding>
+                                                <Insets bottom="15.0" />
+                                            </padding>
+                                        </Label>
+                                        
+                                        <!-- Titre -->
+                                        <VBox spacing="5.0">
+                                            <HBox alignment="CENTER_LEFT">
+                                                <Label style="-fx-font-weight: bold; -fx-text-fill: #555;" text="Titre" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="nomErrorLabel" style="-fx-font-size: 12px;" />
+                                            </HBox>
+                                            <TextField fx:id="nomField" styleClass="form-field" promptText="Entrez le titre de l'article" />
+                                        </VBox>
+                                        
+                                        <!-- Catégorie -->
+                                        <VBox spacing="5.0">
+                                            <HBox alignment="CENTER_LEFT">
+                                                <Label style="-fx-font-weight: bold; -fx-text-fill: #555;" text="Catégorie" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="categorieErrorLabel" style="-fx-font-size: 12px;" />
+                                            </HBox>
+                                            <ComboBox fx:id="categorieField" maxWidth="Infinity" styleClass="form-field" promptText="Choisir une catégorie" />
+                                        </VBox>
+                                        
+                                        <!-- Date -->
+                                        <VBox spacing="5.0">
+                                            <HBox alignment="CENTER_LEFT">
+                                                <Label style="-fx-font-weight: bold; -fx-text-fill: #555;" text="Date de Publication" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="dateErrorLabel" style="-fx-font-size: 12px;" />
+                                            </HBox>
+                                            <DatePicker fx:id="dateField" maxWidth="Infinity" styleClass="form-field" />
+                                        </VBox>
+                                        
+                                        <!-- Contenu -->
+                                        <VBox spacing="5.0">
+                                            <HBox alignment="CENTER_LEFT">
+                                                <Label style="-fx-font-weight: bold; -fx-text-fill: #555;" text="Contenu" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="contenuErrorLabel" style="-fx-font-size: 12px;" />
+                                            </HBox>
+                                            <TextArea fx:id="contenuField" styleClass="form-field" wrapText="true" prefRowCount="5" promptText="Entrez le contenu de l'article" />
+                                        </VBox>
+                                        
+                                        <!-- Image -->
+                                        <VBox spacing="5.0">
+                                            <HBox alignment="CENTER_LEFT">
+                                                <Label style="-fx-font-weight: bold; -fx-text-fill: #555;" text="Image" />
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="imageErrorLabel" style="-fx-font-size: 12px;" />
+                                            </HBox>
+                                            <HBox spacing="10.0">
+                                                <Button onAction="#handleImageUpload" styleClass="upload-btn" text="Choisir une image" />
+                                                <TextField fx:id="imageArticleField" editable="false" styleClass="form-field" HBox.hgrow="ALWAYS" promptText="Aucune image sélectionnée" />
+                                            </HBox>
+                                        </VBox>
+                                        
+                                        <!-- Aperçu de l'image -->
+                                        <VBox spacing="5.0" alignment="CENTER">
+                                            <padding>
+                                                <Insets top="10.0" />
+                                            </padding>
+                                            <Label style="-fx-font-weight: bold; -fx-text-fill: #555;" text="Aperçu de l'image" />
+                                            <ImageView fx:id="articleImageView" fitHeight="200.0" fitWidth="200.0" />
+                                        </VBox>
+                                        
+                                        <HBox alignment="CENTER" spacing="15.0">
+                                            <padding>
+                                                <Insets top="20.0" />
+                                            </padding>
+                                            <children>
+                                                <Button fx:id="btnAjouter" onAction="#addArticle" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-padding: 10.0 25.0; -fx-background-radius: 5.0; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Ajouter l'Article">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </children>
+            </VBox>
+        </HBox>
+    </children>
+</AnchorPane>

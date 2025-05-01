@@ -1,0 +1,371 @@
+/* Variables globales */
+* {
+    -fx-dark-red: #8B0000;
+    -fx-red: #FF0000;
+    -fx-gold: #ffd700;
+    -fx-black: #000000;
+    -fx-white: #ffffff;
+    -fx-dark-gray: #1E1E1E;
+    -fx-medium-gray: #2D2D2D;
+    -fx-light-gray: #3D3D3D;
+}
+.menu-button, .profile-button, .logout-button, .view-all-button {
+    -fx-transition: all 0.2s ease-in-out;
+}
+.card {
+    -fx-background-color: -fx-medium-gray;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 2);
+    -fx-padding: 20px;
+}
+.dashboard-content > * {
+    -fx-spacing: 20px;
+    -fx-padding: 10 20 10 20;
+}
+.table-view .table-row-cell {
+    -fx-border-color: derive(-fx-dark-gray, 10%);
+    -fx-border-width: 0 0 1 0;
+}
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-red;
+    -fx-padding: 5 0 10 0;
+    -fx-border-color: -fx-red;
+    -fx-border-width: 0 0 1 0;
+}
+.table-view .table-row-cell:hover {
+    -fx-background-color: derive(-fx-red, 20%);
+    -fx-cursor: hand;
+}
+.chart, .chart-legend {
+    -fx-background-color: transparent;
+}
+.notification-badge {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-padding: 2 6;
+}
+
+.chart-plot-background {
+    -fx-background-color: derive(-fx-dark-gray, 20%);
+    -fx-background-radius: 10;
+}
+
+.menu-button:hover, .profile-button:hover, .logout-button:hover, .view-all-button:hover {
+    -fx-translate-x: 3px;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-cursor: hand;
+}
+
+/* Root Styles */
+.root {
+    -fx-background-color: -fx-dark-gray;
+    -fx-font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header Styles */
+.header {
+    -fx-background-color: -fx-black;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 2);
+}
+
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-red;
+}
+
+.header-right-box {
+    -fx-alignment: center-right;
+}
+
+.profile-button, .logout-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-white;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.profile-button:hover, .logout-button:hover {
+    -fx-background-color: -fx-dark-red;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    -fx-background-color: -fx-medium-gray;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 2, 0);
+    -fx-min-width: 250px;
+    -fx-pref-width: 250px;
+}
+
+.sidebar-logo-box {
+    -fx-alignment: center;
+    -fx-padding: 20px 0;
+}
+
+.sidebar-separator {
+    -fx-background-color: -fx-red;
+    -fx-opacity: 0.5;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-white;
+    -fx-alignment: center-left;
+    -fx-padding: 12px 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+}
+
+.menu-button:hover {
+    -fx-background-color: derive(-fx-dark-red, 20%);
+}
+
+.menu-button:pressed {
+    -fx-background-color: -fx-dark-red;
+}
+
+/* Content Area Styles */
+.content-area {
+    -fx-background-color: -fx-dark-gray;
+    -fx-padding: 20px;
+}
+
+.dashboard-content {
+    -fx-spacing: 20px;
+}
+
+/* Stats Cards */
+.stat-card-container {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.stat-card {
+    -fx-background-color: -fx-medium-gray;
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 2);
+    -fx-min-width: 220px;
+    -fx-max-width: 220px;
+}
+
+.stat-icon-background {
+    -fx-fill: derive(-fx-dark-red, 20%);
+    -fx-stroke: -fx-red;
+    -fx-stroke-width: 2px;
+}
+
+.stat-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-white;
+    -fx-padding: 10px 0 5px 0;
+}
+
+.stat-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-red;
+}
+
+.stat-trend-box {
+    -fx-spacing: 5;
+    -fx-padding: 5px 0 0 0;
+}
+
+.stat-trend-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #4caf50;
+}
+
+/* TabPane Styles */
+.dashboard-tabs {
+    -fx-background-color: transparent;
+}
+
+.dashboard-tabs .tab-header-area {
+    -fx-padding: 0 0 10 0;
+}
+
+.dashboard-tabs .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.dashboard-tabs .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-padding: 10px 15px;
+}
+
+.dashboard-tabs .tab:selected {
+    -fx-background-color: -fx-medium-gray;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5, 0, 0, 0);
+}
+
+.dashboard-tabs .tab-label {
+    -fx-text-fill: -fx-white;
+    -fx-font-size: 14px;
+}
+
+.dashboard-tabs .tab:selected .tab-label {
+    -fx-text-fill: -fx-red;
+    -fx-font-weight: bold;
+}
+
+.dashboard-tabs .tab-content-area {
+    -fx-background-color: -fx-medium-gray;
+    -fx-background-radius: 0 5px 5px 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 2);
+}
+
+/* TableView Styles */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -fx-light-gray;
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -fx-white;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: -fx-medium-gray;
+    -fx-border-color: transparent;
+    -fx-padding: 5px;
+    -fx-text-fill: -fx-white;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: -fx-light-gray;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: derive(-fx-dark-red, 20%);
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: -fx-dark-red;
+    -fx-text-fill: -fx-white;
+}
+
+/* Scrollbar Styling */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -fx-dark-red;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Search Field Styles */
+.search-field {
+    -fx-background-color: -fx-light-gray;
+    -fx-text-fill: -fx-white;
+    -fx-prompt-text-fill: derive(-fx-white, -30%);
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+}
+
+/* Profile Section Styles */
+.profile-section {
+    -fx-background-color: -fx-medium-gray;
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+}
+
+.profile-name {
+    -fx-text-fill: -fx-white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.profile-role {
+    -fx-text-fill: -fx-red;
+    -fx-font-size: 14px;
+}
+
+.stats-value {
+    -fx-text-fill: -fx-white;
+    -fx-font-weight: bold;
+}
+
+.stats-label {
+    -fx-text-fill: derive(-fx-white, -30%);
+}
+
+/* Notification Badge */
+.notification-badge {
+    -fx-background-color: -fx-red;
+    -fx-text-fill: -fx-white;
+    -fx-background-radius: 50%;
+    -fx-padding: 2px 6px;
+    -fx-font-size: 10px;
+}/* Emoji Icon Style for Stat Cards */
+.stat-icon {
+    -fx-font-size: 36px;
+    -fx-text-fill: -fx-red;
+    -fx-padding: 5px 0;
+}
+
+/* Updated stat-value for better spacing */
+.stat-value {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-white;
+}
+
+/* Updated stat-label for more clarity */
+.stat-label {
+    -fx-text-fill: derive(-fx-white, -30%);
+    -fx-font-size: 14px;
+}
+
+/* Positive and negative trend indicators */
+.stat-trend {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.stat-trend.positive {
+    -fx-text-fill: #4caf50; /* green */
+}
+
+.stat-trend.negative {
+    -fx-text-fill: #f44336; /* red */
+}

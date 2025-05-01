@@ -1,0 +1,63 @@
+/* Animations et transitions */
+.button {
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+}
+
+/* Style des cartes d'articles */
+.article-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.article-card:hover {
+    -fx-translate-y: -5;
+    -fx-effect: dropshadow(gaussian, rgba(40,27,216,0.2), 15, 0, 0, 4);
+}
+
+/* Style des champs de recherche */
+.text-field:focused, .combo-box:focused {
+    -fx-border-color: #281bd8;
+    -fx-effect: dropshadow(gaussian, rgba(40,27,216,0.1), 5, 0, 0, 0);
+}
+
+/* Style du ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #281bd8;
+    -fx-background-radius: 6;
+}
+
+/* Style des éléments de navigation */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #281bd8;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #281bd810;
+    -fx-background-radius: 6;
+}

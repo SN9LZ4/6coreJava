@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox spacing="20" style="-fx-padding: 20;" 
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/21"
+      fx:controller="Controller.ArticleStatsController"
+      stylesheets="@/styles/stats.css">
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Statistiques de l'article" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS" />
+    </HBox>
+    
+    <HBox spacing="20">
+        <!-- Ratings Card -->
+        <VBox styleClass="stat-card" spacing="10">
+            <Label text="Notes" styleClass="stat-card-title"/>
+            <Label fx:id="avgRatingLabel" styleClass="stat-value"/>
+            <HBox fx:id="starsContainer" spacing="5"/>
+            <Label fx:id="ratingCountLabel" styleClass="stat-subtitle"/>
+            <BarChart fx:id="ratingDistributionChart" prefHeight="200" prefWidth="300" legendVisible="false">
+                <xAxis>
+                    <CategoryAxis label="Note" style="-fx-font-size: 12;"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Nombre de votes" style="-fx-font-size: 12;"/>
+                </yAxis>
+            </BarChart>
+        </VBox>
+        
+        <!-- Reactions Card -->
+        <VBox styleClass="stat-card" spacing="10">
+            <Label text="Réactions" styleClass="stat-card-title"/>
+            <PieChart fx:id="reactionsPieChart" prefHeight="200" prefWidth="300"/>
+            <HBox spacing="20" alignment="CENTER">
+                <VBox alignment="CENTER">
+                    <Label fx:id="likesLabel" styleClass="stat-value"/>
+                    <Label text="J'aime" styleClass="stat-subtitle"/>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <Label fx:id="dislikesLabel" styleClass="stat-value"/>
+                    <Label text="Je n'aime pas" styleClass="stat-subtitle"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>

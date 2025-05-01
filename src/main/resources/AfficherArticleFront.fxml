@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.Rectangle?>
+
+<?import javafx.scene.shape.Circle?>
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AfficherArticleFront" style="-fx-background-color: linear-gradient(to bottom right, #f0f4f9, #ffffff);">
+
+    <stylesheets>
+        <URL value="@styles/article.css" />
+    </stylesheets>
+
+    <children>
+
+        <!-- TOP SECTION -->
+        <VBox spacing="0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+            <!-- INFO BAR -->
+            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="info-bar">
+                <padding><Insets top="10" bottom="10" left="25" right="25"/></padding>
+
+                <Label text="123 Esprit, Elghazela, Tunisie" styleClass="info-label">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@images/map.png"/>
+                            <effect><Bloom threshold="0.25"/></effect>
+                        </ImageView>
+                    </graphic>
+                </Label>
+
+                <Label text="+216 24 705 213" styleClass="info-label">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@images/star.png"/>
+                            <effect><Bloom threshold="0.25"/></effect>
+                        </ImageView>
+                    </graphic>
+                </Label>
+
+                <Label text="ChouFliFilm@gmail.com" styleClass="info-label">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@images/star.png"/>
+                            <effect><Bloom threshold="0.25"/></effect>
+                        </ImageView>
+                    </graphic>
+                </Label>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <Button styleClass="social-button">
+                        <graphic>
+                            <ImageView fitHeight="16" fitWidth="16">
+                                <Image url="@images/star.png"/>
+                                <effect><Bloom threshold="0.2"/></effect>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </HBox>
+
+            <!-- NAVIGATION BAR -->
+            <HBox alignment="CENTER" prefHeight="80" spacing="18" styleClass="nav-bar">
+                <padding><Insets top="15" bottom="15" left="25" right="25"/></padding>
+
+                <StackPane>
+                    <ImageView fx:id="logoImage" fitHeight="70" fitWidth="150">
+                        <image><Image url="@images/logo.png"/></image>
+                    </ImageView>
+                    <effect><Glow level="0.3"><input><DropShadow color="#2c7dd9" radius="7" spread="0.05"/></input></Glow></effect>
+                </StackPane>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="Home" styleClass="nav-btn"/>
+                <Button text="About" styleClass="nav-btn"/>
+                <Button text="Articles" styleClass="nav-btn nav-btn-active"/>
+                <Button text="Reclamations" styleClass="nav-btn"/>
+                <Button text="Bénévolat" styleClass="nav-btn"/>
+                <Button text="Blogs" styleClass="nav-btn"/>
+
+                <Button text="Panier" styleClass="cart-btn">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <Image url="@images/star.png"/>
+                            <effect><ColorAdjust brightness="0.1" contrast="0.2" hue="0.05" saturation="0.2"/></effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <StackPane>
+                    <Button styleClass="notif-btn">
+                        <graphic>
+                            <ImageView fitHeight="18" fitWidth="18">
+                                <Image url="@images/notification.png"/>
+                                <effect><ColorAdjust brightness="0.1" contrast="0.2" hue="0.05" saturation="0.2"/></effect>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Label text="0" styleClass="notif-count">
+                        <StackPane.margin><Insets top="-20" left="20"/></StackPane.margin>
+                    </Label>
+                </StackPane>
+
+                <ImageView fx:id="userImageView" fitHeight="42" fitWidth="42"/>
+
+                <Button text="Logout" onAction="#logout" styleClass="logout-btn">
+                    <graphic>
+                        <ImageView fitHeight="14" fitWidth="14">
+                            <Image url="@images/logout.png"/>
+                            <effect><Bloom threshold="0.2"/></effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+            </HBox>
+
+        </VBox>
+
+        <!-- CENTER CONTENT -->
+        <StackPane AnchorPane.topAnchor="120" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" style="-fx-background-color: linear-gradient(to bottom right, #f0f4f9, #ffffff);">
+
+            <ImageView fitHeight="500" fitWidth="1200" preserveRatio="false">
+                <image><Image url="@images/back.png"/></image>
+                <effect><GaussianBlur radius="2">
+                    <input><ColorAdjust brightness="0.05" contrast="0.1" hue="0.02" saturation="-0.1"/></input>
+                </GaussianBlur></effect>
+            </ImageView>
+
+            <Rectangle height="680" width="1200">
+                <fill>
+                    <LinearGradient endX="1.0" endY="1.0">
+                        <stops>
+                            <Stop offset="0" color="#f2f7ff" />
+                            <Stop offset="1" color="#ffffff" />
+                        </stops>
+                    </LinearGradient>
+                </fill>
+            </Rectangle>
+
+            <VBox spacing="25" styleClass="content-box" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="150" AnchorPane.bottomAnchor="80">
+                <padding><Insets top="40" bottom="40" left="50" right="50"/></padding>
+
+                <Label text="Découvrez nos articles" styleClass="section-title"/>
+
+                <!-- Barre de recherche améliorée avec boutons icônes -->
+                <VBox spacing="10" styleClass="enhanced-search-bar">
+                    <padding><Insets top="25" bottom="25" left="30" right="30"/></padding>
+
+                    <HBox spacing="20" alignment="CENTER" styleClass="enhanced-search-container">
+                        <padding><Insets top="15" bottom="15" left="25" right="25"/></padding>
+                        
+                        <!-- Champ de recherche avec icône -->
+                        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="enhanced-search-field-container" HBox.hgrow="ALWAYS">
+                            <StackPane>
+                                <Circle radius="18" styleClass="search-icon-circle" />
+                                <ImageView fitHeight="18" fitWidth="18">
+                                    <Image url="@images/search.png"/>
+                                    <effect>
+                                        <ColorAdjust brightness="0.7" contrast="0.2"/>
+                                    </effect>
+                                </ImageView>
+                            </StackPane>
+                            <TextField fx:id="searchField" promptText="Rechercher un article..." styleClass="enhanced-search-field" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                        
+                        <!-- Filtre par catégorie avec icône -->
+                        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="enhanced-category-container">
+                            <StackPane>
+                                <Circle radius="18" styleClass="category-icon-circle" />
+                                <ImageView fitHeight="18" fitWidth="18">
+                                    <Image url="@images/category.png"/>
+                                    <effect>
+                                        <ColorAdjust brightness="0.7" contrast="0.2"/>
+                                    </effect>
+                                </ImageView>
+                            </StackPane>
+                            <ComboBox fx:id="categoryFilter" promptText="Catégorie" styleClass="enhanced-combo-box"/>
+                        </HBox>
+                        
+                        <!-- Bouton de recherche (icône uniquement) -->
+                        <StackPane styleClass="icon-button-container">
+                            <Circle radius="22" styleClass="search-button-circle" />
+                            <Button onAction="#handleSearch" styleClass="icon-only-button">
+                                <graphic>
+                                    <ImageView fitHeight="20" fitWidth="20">
+                                        <Image url="@images/search-white.png"/>
+                                    </ImageView>
+                                </graphic>
+                                <tooltip>
+                                    <Tooltip text="Rechercher" />
+                                </tooltip>
+                            </Button>
+                        </StackPane>
+                        
+                        <!-- Bouton de réinitialisation (icône uniquement) -->
+                        <StackPane styleClass="icon-button-container">
+                            <Circle radius="22" styleClass="reset-button-circle" />
+                            <Button onAction="#handleReset" styleClass="icon-only-button">
+                                <graphic>
+                                    <ImageView fitHeight="20" fitWidth="20">
+                                        <Image url="@images/reload.png"/>
+                                        <effect>
+                                            <ColorAdjust brightness="0.7" contrast="0.2"/>
+                                        </effect>
+                                    </ImageView>
+                                </graphic>
+                                <tooltip>
+                                    <Tooltip text="Réinitialiser" />
+                                </tooltip>
+                            </Button>
+                        </StackPane>
+                    </HBox>
+                </VBox>
+
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox alignment="TOP_CENTER" spacing="20">
+                        <FlowPane fx:id="flowPane" hgap="20" vgap="20" alignment="CENTER" style="-fx-padding: 10;">
+                            <VBox spacing="10" prefWidth="250" styleClass="article-card">
+                                <ImageView fitHeight="140" fitWidth="250" preserveRatio="false" styleClass="article-image">
+                                    <image>
+                                        <Image url="@images/blog.png"/>
+                                    </image>
+                                </ImageView>
+
+                                <Label text="Titre de l'article" styleClass="article-title-card" wrapText="true"/>
+                                <Label text="Petit résumé de l'article..." styleClass="article-description-card" wrapText="true"/>
+                                <Button text="Voir plus" styleClass="article-btn"/>
+                            </VBox>
+                        </FlowPane>
+                    </VBox>
+                </ScrollPane>
+
+            </VBox>
+
+        </StackPane>
+
+    </children>
+
+</AnchorPane>

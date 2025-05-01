@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.ListeCommentaires"
+            style="-fx-background-color: #f8faff;">
+
+    <children>
+        <!-- Decorative Background Circles -->
+        <Pane mouseTransparent="true">
+            <children>
+                <Circle centerX="100" centerY="200" radius="120" fill="rgba(100,149,237,0.08)" />
+                <Circle centerX="700" centerY="300" radius="180" fill="rgba(100,149,237,0.12)" />
+            </children>
+        </Pane>
+
+        <VBox spacing="25" style="-fx-padding: 40px 50px;" alignment="TOP_CENTER">
+            <children>
+                <!-- Header with icon -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <children>
+                        <ImageView fitHeight="32" fitWidth="32">
+                            <image>
+                                <Image url="@images/comments.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Liste des Commentaires"
+                               style="-fx-font-size: 28px; -fx-text-fill: #1a73e8; -fx-font-weight: bold;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+
+                <!-- Comment Cards Container -->
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="commentaireContainer" spacing="15" style="-fx-padding: 10;">
+                            <!-- Comment cards will be generated dynamically -->
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </children>
+
+</AnchorPane>

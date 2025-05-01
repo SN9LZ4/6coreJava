@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #f8faff;"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.ModifierArticle">
+    <children>
+        <Pane mouseTransparent="true">
+            <children>
+                <Circle centerX="100" centerY="200" fill="rgba(100,149,237,0.08)" radius="120.0" />
+                <Circle centerX="850" centerY="300" fill="rgba(100,149,237,0.12)" radius="180.0" />
+            </children>
+        </Pane>
+
+        <!-- Main ScrollPane to enable scrolling for the entire page -->
+        <ScrollPane fitToWidth="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" 
+                    AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" 
+                    style="-fx-background-color: transparent; -fx-padding: 0;">
+            <content>
+                <HBox spacing="0" style="-fx-background-color: transparent;">
+                    <VBox spacing="20.0" style="-fx-background-color: white; -fx-pref-width: 250.0; -fx-padding: 30.0 20.0;">
+                        <children>
+                            <ImageView fitHeight="120.0" fitWidth="140.0">
+                                <image>
+                                    <Image url="@images/logo.png" />
+                                </image>
+                            </ImageView>
+
+                            <VBox spacing="12.0">
+                                <children>
+                                    <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Dashboard" />
+                                    <Button style="-fx-background-color: #e3efff; -fx-text-fill: #1a73e8; -fx-font-weight: bold; -fx-font-size: 16.0; -fx-background-radius: 10.0;" text="Articles" />
+                                    <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Utilisateurs" />
+                                    <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Réclamations" />
+                                    <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Finance" />
+                                    <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Bénévolat" />
+                                    <Button style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 16.0;" text="Projections" />
+                                </children>
+                            </VBox>
+
+                            <Region VBox.vgrow="ALWAYS" />
+
+                            <Button style="-fx-background-color: linear-gradient(to right, #6495ED, #4169E1); -fx-background-radius: 30.0; -fx-text-fill: white; -fx-font-size: 16.0; -fx-font-weight: bold; -fx-cursor: hand;" text="LOGOUT">
+                                <graphic>
+                                    <StackPane>
+                                        <children>
+                                            <Circle fill="white" radius="12.0" stroke="#6495ED" strokeWidth="2.0" />
+                                            <Label style="-fx-text-fill: #6495ED; -fx-font-size: 16.0; -fx-font-weight: bold;" text="🔓" />
+                                        </children>
+                                    </StackPane>
+                                </graphic>
+                            </Button>
+                        </children>
+                    </VBox>
+
+                    <VBox spacing="25" style="-fx-padding: 40px 50px;" alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                        <children>
+                            <HBox spacing="20" alignment="CENTER_LEFT">
+                                <children>
+                                    <ImageView fitHeight="32" fitWidth="32">
+                                        <image>
+                                            <Image url="@images/blog.png"/>
+                                        </image>
+                                    </ImageView>
+                                    <Label text="Modifier l'Article"
+                                        style="-fx-font-size: 28px; -fx-text-fill: #1a73e8; -fx-font-weight: bold;"/>
+                                </children>
+                            </HBox>
+
+                            <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                <content>
+                                    <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 0 20;">
+                                        <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 30;
+                                                                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+                                                                -fx-background-radius: 10;">
+
+                                            <VBox spacing="8">
+                                                <Label text="Titre de l'article" style="-fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                                                <TextField fx:id="titreField" promptText="Entrez le titre de l'article"
+                                                           style="-fx-padding: 10; -fx-background-radius: 7;
+                                                                  -fx-border-color: #cbd5e0; -fx-border-radius: 7; -fx-font-size: 14px;"/>
+                                                <Label fx:id="titreErrorLabel" style="-fx-font-size: 12px; -fx-text-fill: red;" />
+                                            </VBox>
+
+                                            <VBox spacing="8">
+                                                <Label text="Catégorie" style="-fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                                                <ComboBox fx:id="categorieField" promptText="Sélectionnez une catégorie"
+                                                          maxWidth="Infinity"
+                                                          style="-fx-padding: 10; -fx-background-radius: 7;
+                                                                -fx-border-color: #cbd5e0; -fx-border-radius: 7; -fx-font-size: 14px;"/>
+                                                <Label fx:id="categorieErrorLabel" style="-fx-font-size: 12px; -fx-text-fill: red;" />
+                                            </VBox>
+
+                                            <VBox spacing="8">
+                                                <Label text="Date de publication" style="-fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                                                <DatePicker fx:id="dateField" maxWidth="Infinity"
+                                                            style="-fx-padding: 10; -fx-background-radius: 7;
+                                                                  -fx-border-color: #cbd5e0; -fx-border-radius: 7; -fx-font-size: 14px;"/>
+                                                <Label fx:id="dateErrorLabel" style="-fx-font-size: 12px; -fx-text-fill: red;" />
+                                            </VBox>
+
+                                            <VBox spacing="8">
+                                                <Label text="Contenu" style="-fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                                                <TextArea fx:id="contenuField" promptText="Entrez le contenu de l'article"
+                                                         wrapText="true" prefRowCount="5"
+                                                         style="-fx-padding: 10; -fx-background-radius: 7;
+                                                                -fx-border-color: #cbd5e0; -fx-border-radius: 7; -fx-font-size: 14px;"/>
+                                                <Label fx:id="contenuErrorLabel" style="-fx-font-size: 12px; -fx-text-fill: red;" />
+                                            </VBox>
+
+                                            <VBox spacing="8">
+                                                <Label text="Image" style="-fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                                                <HBox spacing="10">
+                                                    <Button onAction="#handleImageUpload" text="Choisir une image"
+                                                            style="-fx-background-color: #4CAF50; -fx-text-fill: white;
+                                                                   -fx-padding: 10 20; -fx-background-radius: 7;
+                                                                   -fx-font-weight: bold; -fx-cursor: hand; -fx-font-size: 14px;"/>
+                                                    <TextField fx:id="imageArticleField" editable="false"
+                                                               promptText="Aucune image sélectionnée"
+                                                               HBox.hgrow="ALWAYS"
+                                                               style="-fx-padding: 10; -fx-background-radius: 7;
+                                                                     -fx-border-color: #cbd5e0; -fx-border-radius: 7; -fx-font-size: 14px;"/>
+                                                </HBox>
+                                                <Label fx:id="imageErrorLabel" style="-fx-font-size: 12px; -fx-text-fill: red;" />
+                                            </VBox>
+
+                                            <VBox spacing="8" alignment="CENTER">
+                                                <Label text="Aperçu de l'image" style="-fx-font-weight: bold; -fx-text-fill: #4a5568;"/>
+                                                <ImageView fx:id="articleImageView" fitHeight="200" fitWidth="200"
+                                                           preserveRatio="true"
+                                                           style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"/>
+                                            </VBox>
+
+                                            <Button fx:id="btnModifier" text="Enregistrer les modifications"
+                                                    onAction="#modifierArticle"
+                                                    style="-fx-background-color: #2196F3; -fx-text-fill: white;
+                                                           -fx-padding: 15 30; -fx-font-size: 16;
+                                                           -fx-background-radius: 7; -fx-font-weight: bold;
+                                                           -fx-cursor: hand;"
+                                                    maxWidth="Infinity"/>
+                                        </VBox>
+                                    </VBox>
+                                </content>
+                            </ScrollPane>
+                        </children>
+                    </VBox>
+                </HBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

@@ -153,6 +153,7 @@ public class affichageFrontController
                 listContainer.getChildren().add(itemContainer);
             }
         }
+        // reclamation
         reclamationContainer.getChildren().add(scrollPane);
     }
         private HBox createInfoRow(String labelText, javafx.scene.Node valueNode, String labelStyle, String valueStyle) {

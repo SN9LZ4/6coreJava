@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.HTMLEditor?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.ModifierFilmController"
+            prefWidth="800" prefHeight="750"
+            style="-fx-background-color: linear-gradient(to bottom right, #fcfcfc, #b1c8f1);">
+
+    <VBox spacing="20" alignment="TOP_CENTER" layoutX="30" layoutY="20" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Label text="🎬 Modifier Film"
+               style="-fx-font-size: 26px; -fx-text-fill: #000000; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="15" vgap="15" style="-fx-padding: 10;">
+            <Label text="Titre:"/>
+            <TextField fx:id="titreField" GridPane.columnIndex="1"/>
+
+            <Label text="Directeur:" GridPane.rowIndex="1"/>
+            <TextField fx:id="directeurField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Genre:" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="genreComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Sélectionner un genre"/>
+
+            <Label text="Note (0-10):" GridPane.rowIndex="3"/>
+            <Spinner fx:id="noteSpinner" GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="150"/>
+
+            <Label text="Durée (min):" GridPane.rowIndex="4"/>
+            <Spinner fx:id="dureeSpinner" GridPane.rowIndex="4" GridPane.columnIndex="1" maxWidth="150"/>
+
+            <Label text="Date début:" GridPane.rowIndex="5"/>
+            <DatePicker fx:id="dateDebutPicker" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <Label text="Date fin:" GridPane.rowIndex="6"/>
+            <DatePicker fx:id="dateFinPicker" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="Image:" GridPane.rowIndex="7"/>
+            <Button fx:id="uploadImageButton" text="🖼️ Choisir une image"
+                    onAction="#handleImageUpload"
+                    GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+            <Label text="Aperçu image:" GridPane.rowIndex="8"/>
+            <ImageView fx:id="imagePreview" fitHeight="100" fitWidth="200" preserveRatio="true"
+                       GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Label text="Description:" style="-fx-font-size: 16px;"/>
+        <HTMLEditor fx:id="descriptionEditor" prefHeight="200" prefWidth="700"/>
+
+        <Button fx:id="saveButton"
+                onAction="#handleSave"
+                text="💾 Enregistrer les modifications"
+                style="-fx-background-color: #4169e1; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; padding: 10px 20px;"
+                maxWidth="300"/>
+    </VBox>
+</AnchorPane>

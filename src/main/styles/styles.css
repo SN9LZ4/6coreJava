@@ -1,0 +1,43 @@
+/* Global styles for the interface */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: #f4f4f9;
+}
+
+/* Title Style */
+.text {
+    -fx-fill: #333;
+}
+
+/* ListView items */
+.list-cell {
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-insets: 0;
+    -fx-padding: 10px;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.1), 5, 0.0, 0, 1);
+}
+
+/* Hover effect for ListView items */
+.list-cell:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Button Style */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #388e3c;
+}

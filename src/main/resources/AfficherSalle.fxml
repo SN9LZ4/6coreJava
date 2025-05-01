@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.AfficherSalleController"
+            prefHeight="800.0" prefWidth="1200.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #ffffff, #c4c1df, #d9d9f8);">
+
+    <!-- Animated background elements -->
+    <Circle centerX="150" centerY="150" radius="100" fill="radial-gradient(center 50% 50%, radius 50%, rgba(255,105,180,0.15), transparent)">
+        <effect>
+            <Glow level="0.8"/>
+        </effect>
+    </Circle>
+    <Circle centerX="1050" centerY="650" radius="150" fill="radial-gradient(center 50% 50%, radius 50%, rgba(100,149,237,0.15), transparent)">
+        <effect>
+            <Glow level="0.6"/>
+        </effect>
+    </Circle>
+
+    <!-- Header with neon effect -->
+    <HBox alignment="CENTER_LEFT" style="-fx-background-color: rgba(15,12,41,0.9); -fx-border-color: linear-gradient(to right, #ff00ff, #00ffff); -fx-border-width: 0 0 3px 0;"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" prefHeight="80">
+
+        <Label text="CINÉMA ADMINISTRATION"
+               style="-fx-text-fill: linear-gradient(to right, #ff00ff, #00ffff); -fx-font-weight: bold; -fx-font-size: 28; -fx-font-family: 'Agency FB';
+                      -fx-effect: dropshadow(three-pass-box, rgba(255,0,255,0.7), 15, 0, 0, 0);"/>
+
+        <Line endX="30" endY="0" startX="0" startY="0" stroke="linear-gradient(to right, #ff00ff, #00ffff)" strokeWidth="3">
+            <HBox.margin>
+                <Insets left="20" right="20"/>
+            </HBox.margin>
+            <effect>
+                <Glow level="0.9"/>
+            </effect>
+        </Line>
+
+        <Label text="GESTION DES SALLES"
+               style="-fx-text-fill: #a0aec0; -fx-font-size: 20; -fx-font-family: 'Agency FB';
+                      -fx-effect: dropshadow(three-pass-box, rgba(0,255,255,0.5), 8, 0, 0, 0);"/>
+    </HBox>
+
+    <!-- Main Content Area -->
+    <SplitPane dividerPositions="0.25" style="-fx-background-color: transparent; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 0);"
+               AnchorPane.topAnchor="80" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="80">
+
+        <!-- Left Panel - Hall List -->
+        <VBox spacing="20" style="-fx-background-color: rgba(26,27,58,0.8); -fx-background-radius: 15; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25;">
+            <effect>
+                <InnerShadow color="rgba(255,0,255,0.3)" radius="10"/>
+            </effect>
+
+            <Label text="LISTE DES SALLES"
+                   style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: white; -fx-font-family: 'Agency FB';
+                          -fx-effect: dropshadow(three-pass-box, rgba(0,255,255,0.5), 5, 0, 0, 0);"/>
+
+            <TextField promptText="Rechercher une salle..."
+                       style="-fx-background-radius: 10; -fx-background-color: rgba(10,12,39,0.8); -fx-text-fill: white;
+                              -fx-prompt-text-fill: #718096; -fx-border-color: rgba(255,0,255,0.3); -fx-border-radius: 10; -fx-padding: 12 18; -fx-font-size: 14;">
+                <effect>
+                    <Glow level="0.3"/>
+                </effect>
+            </TextField>
+
+            <ListView fx:id="salleListView" style="-fx-background-radius: 10; -fx-background-color: rgba(10,12,39,0.8);
+                      -fx-control-inner-background: rgba(10,12,39,0.8); -fx-border-radius: 10; -fx-border-color: rgba(0,255,255,0.3);
+                      -fx-text-fill: white; -fx-font-size: 14;" VBox.vgrow="ALWAYS">
+                <effect>
+                    <InnerShadow color="rgba(0,255,255,0.2)" radius="5"/>
+                </effect>
+            </ListView>
+        </VBox>
+
+        <!-- Right Panel - Hall Details -->
+        <VBox spacing="25" style="-fx-background-color: rgba(26,27,58,0.8); -fx-background-radius: 15; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25;">
+            <effect>
+                <InnerShadow color="rgba(0,255,255,0.3)" radius="10"/>
+            </effect>
+
+            <HBox spacing="30" alignment="TOP_LEFT">
+                <!-- Hall Image -->
+                <VBox spacing="20" alignment="CENTER">
+                    <StackPane style="-fx-background-color: rgba(10,12,39,0.8); -fx-background-radius: 10; -fx-border-color: linear-gradient(to bottom right, #ff00ff, #00ffff); -fx-border-radius: 10; -fx-border-width: 2; -fx-padding: 5;">
+                        <effect>
+                            <DropShadow color="#00ffff" radius="15" spread="0.1"/>
+                        </effect>
+
+                        <ImageView fx:id="salleImageView" fitWidth="280" fitHeight="380" preserveRatio="true"
+                                   style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 5);"/>
+
+                        <Label text="Aperçu de la salle" style="-fx-text-fill: #a0aec0; -fx-font-style: italic;"/>
+                    </StackPane>
+
+                    <HBox spacing="15" alignment="CENTER">
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button fx:id="modifyButton" text="Modifier"
+                                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;
+                                           -fx-background-radius: 6; -fx-padding: 10 20;"
+                                    onMouseEntered="#handleHoverIn" onMouseExited="#handleHoverOut"/>
+                            <Button fx:id="deleteButton" text="Supprimer"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;
+                                           -fx-background-radius: 6; -fx-padding: 10 20;"/>
+                        </HBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Hall Details -->
+                <GridPane hgap="20" vgap="20" style="-fx-padding: 10;">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="150" halignment="RIGHT"/>
+                        <ColumnConstraints minWidth="300"/>
+                    </columnConstraints>
+
+                    <Label text="NOM:" style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 16; -fx-font-family: 'Agency FB';"/>
+                    <Label fx:id="nomLabel" style="-fx-font-size: 18; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Agency FB';
+                           -fx-effect: dropshadow(three-pass-box, rgba(0,255,255,0.5), 3, 0, 0, 0);" GridPane.columnIndex="1"/>
+
+                    <Label text="NOMBRE DE PLACES:" GridPane.rowIndex="1"
+                           style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 16; -fx-font-family: 'Agency FB';"/>
+                    <Label fx:id="placesLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                           style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';"/>
+
+                    <Label text="TYPE:" GridPane.rowIndex="2"
+                           style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 16; -fx-font-family: 'Agency FB';"/>
+                    <Label fx:id="typeLabel" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                           style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';"/>
+
+                    <Label text="ÉTAT:" GridPane.rowIndex="3"
+                           style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 16; -fx-font-family: 'Agency FB';"/>
+                    <Label fx:id="etatLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                           style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';"/>
+                </GridPane>
+            </HBox>
+
+            <!-- Description Section -->
+            <VBox spacing="10">
+                <Label text="DESCRIPTION TECHNIQUE"
+                       style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Agency FB';
+                              -fx-effect: dropshadow(three-pass-box, rgba(255,0,255,0.5), 3, 0, 0, 0);"/>
+
+                <StackPane style="-fx-background-color: rgba(10,12,39,0.8); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 15;" VBox.vgrow="ALWAYS">
+                    <effect>
+                        <InnerShadow color="rgba(255,0,255,0.2)" radius="5"/>
+                    </effect>
+
+                    <WebView fx:id="descriptionWebView" style="-fx-background: transparent;"/>
+                </StackPane>
+            </VBox>
+        </VBox>
+    </SplitPane>
+
+    <!-- Add Hall Button -->
+    <StackPane AnchorPane.topAnchor="20" AnchorPane.rightAnchor="20">
+        <Button fx:id="ajouterButton" text="+ NOUVELLE SALLE"
+                style="-fx-background-color: linear-gradient(to right, #ff00ff, #00ffff); -fx-text-fill: white; -fx-font-weight: bold;
+                       -fx-font-size: 14; -fx-padding: 12 25; -fx-background-radius: 5;"/>
+        <effect>
+            <DropShadow color="#00ffff" radius="15" spread="0.2"/>
+        </effect>
+    </StackPane>
+
+    <!-- Bottom Navigation -->
+    <HBox alignment="BOTTOM_RIGHT" spacing="15" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="20">
+        <Button fx:id="retourButton" text="RETOUR AUX FILMS"
+                style="-fx-background-color: linear-gradient(to right, #ff00ff, #8a2be2); -fx-text-fill: white; -fx-font-weight: bold;
+                       -fx-font-size: 14; -fx-padding: 12 28; -fx-background-radius: 5;"/>
+        <effect>
+            <DropShadow color="#ff00ff" radius="10" spread="0.2"/>
+        </effect>
+    </HBox>
+</AnchorPane>

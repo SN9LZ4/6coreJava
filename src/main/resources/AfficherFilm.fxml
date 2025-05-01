@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+
+<BorderPane prefWidth="1200.0" prefHeight="800.0" style="-fx-background-color: linear-gradient(to bottom right, #f0f0f0, #8384b3);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AfficherFilmController">
+
+    <!-- Animated background elements -->
+    <Circle centerX="100" centerY="100" fill="radial-gradient(center 50% 50%, radius 50%, rgba(230,57,70,0.15), transparent)" radius="150">
+        <effect>
+            <Glow>
+                <level>0.8</level>
+            </Glow>
+        </effect>
+    </Circle>
+    <Circle centerX="1100" centerY="600" fill="radial-gradient(center 50% 50%, radius 50%, rgba(64,123,255,0.15), transparent)" radius="200">
+        <effect>
+            <Glow>
+                <level>0.6</level>
+            </Glow>
+        </effect>
+    </Circle>
+
+    <!-- Header with neon effect -->
+    <top>
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color: linear-gradient(to right, rgba(10,12,39,0.9), rgba(26,27,58,0.9)); -fx-border-color: linear-gradient(to right, #e63946, #407bff); -fx-border-width: 0 0 3px 0;" prefHeight="70">
+            <Label style="-fx-text-fill: linear-gradient(to right, #e63946, #407bff); -fx-font-weight: bold; -fx-font-size: 24; -fx-font-family: 'Agency FB'; -fx-effect: dropshadow(three-pass-box, rgba(230,57,70,0.7), 10, 0, 0, 0);" text="CINÉMA ADMINISTRATION" />
+
+            <Line endX="30" endY="0" startX="0" startY="0" stroke="linear-gradient(to right, #e63946, #407bff)" strokeWidth="3">
+                <HBox.margin>
+                    <Insets left="20" right="20" />
+                </HBox.margin>
+                <effect>
+                    <Glow>
+                        <level>0.8</level>
+                    </Glow>
+                </effect>
+            </Line>
+
+            <Label style="-fx-text-fill: #a0aec0; -fx-font-size: 18; -fx-font-family: 'Agency FB'; -fx-effect: dropshadow(three-pass-box, rgba(64,123,255,0.5), 5, 0, 0, 0);" text="GESTION DES FILMS" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <StackPane>
+                <Button fx:id="ajouterButton" onAction="#openPowerBIInBrowser" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 12 25; -fx-cursor: hand;" text="DASHBOARD">
+
+                    <effect>
+                        <DropShadow color="#407bff" radius="10" spread="0.3" />
+                    </effect>
+                </Button>
+                <Rectangle arcHeight="5" arcWidth="5" fill="transparent" height="44" stroke="linear-gradient(to right, #e63946, #407bff)" strokeWidth="2" width="130" />
+            </StackPane>
+
+            <StackPane style="-fx-padding: 0 0 0 15;">
+                <Button fx:id="ajouterButton1" onAction="#handleAjouterFilm" style="-fx-background-color: linear-gradient(to right, #e63946, #f4a261); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 12 25; -fx-background-radius: 5; -fx-cursor: hand;" text="+ NOUVEAU FILM">
+                    <effect>
+                        <DropShadow color="#e63946" radius="15" spread="0.2" />
+                    </effect>
+                </Button>
+            </StackPane>
+        </HBox>
+    </top>
+
+    <!-- Main Content with glass morphism effect -->
+    <center>
+        <SplitPane dividerPositions="0.27" orientation="HORIZONTAL" style="-fx-background-color: transparent; -fx-padding: 20;">
+            <!-- Left Panel - Film List -->
+            <VBox spacing="15" style="-fx-background-color: rgba(26,27,58,0.7); -fx-background-radius: 15; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 0);">
+                <effect>
+                    <InnerShadow>
+                        <color>rgba(230,57,70,0.3)</color>
+                        <radius>10</radius>
+                        <choke>0</choke>
+                        <offsetX>0</offsetX>
+                        <offsetY>0</offsetY>
+                    </InnerShadow>
+                </effect>
+
+                <Label style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Agency FB'; -fx-effect: dropshadow(three-pass-box, rgba(64,123,255,0.5), 5, 0, 0, 0);" text="FILMS" />
+
+                <TextField fx:id="searchField" promptText="Rechercher..." style="-fx-background-radius: 10; -fx-background-color: rgba(10,12,39,0.8); -fx-text-fill: white; -fx-prompt-text-fill: #718096; -fx-border-color: rgba(230,57,70,0.3); -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 12 18; -fx-font-size: 14;">
+                    <effect>
+                        <Glow>
+                            <level>0.3</level>
+                        </Glow>
+                    </effect>
+                </TextField>
+
+                <ListView fx:id="rlist" style="-fx-background-radius: 10; -fx-background-color: rgba(10,12,39,0.8); -fx-control-inner-background: rgba(10,12,39,0.8); -fx-border-radius: 10; -fx-border-color: rgba(64,123,255,0.3); -fx-border-width: 1; -fx-text-fill: white; -fx-font-size: 14;" VBox.vgrow="ALWAYS">
+                    <effect>
+                        <InnerShadow>
+                            <color>rgba(64,123,255,0.2)</color>
+                            <radius>5</radius>
+                            <choke>0</choke>
+                            <offsetX>0</offsetX>
+                            <offsetY>0</offsetY>
+                        </InnerShadow>
+                    </effect>
+                </ListView>
+            </VBox>
+
+            <!-- Right Panel - Film Details -->
+            <VBox spacing="20" style="-fx-background-color: rgba(26,27,58,0.7); -fx-background-radius: 15; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 15; -fx-border-width: 1; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 0);">
+                <effect>
+                    <InnerShadow>
+                        <color>rgba(64,123,255,0.3)</color>
+                        <radius>10</radius>
+                        <choke>0</choke>
+                        <offsetX>0</offsetX>
+                        <offsetY>0</offsetY>
+                    </InnerShadow>
+                </effect>
+
+                <HBox alignment="TOP_LEFT" spacing="30" VBox.vgrow="ALWAYS">
+                    <!-- Film Poster Area -->
+                    <VBox alignment="CENTER" spacing="20">
+                        <StackPane prefHeight="350" prefWidth="240" style="-fx-background-color: rgba(10,12,39,0.8); -fx-background-radius: 10; -fx-border-color: linear-gradient(to bottom right, #e63946, #407bff); -fx-border-radius: 10; -fx-border-width: 2; -fx-padding: 5;">
+                            <effect>
+                                <DropShadow color="#407bff" radius="15" spread="0.1" />
+                            </effect>
+
+                            <ImageView fx:id="filmImageView" fitHeight="330" fitWidth="220" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 5);" />
+
+                            <Label style="-fx-text-fill: #a0aec0; -fx-font-style: italic;" text="Sélectionnez un film" />
+                        </StackPane>
+
+                        <HBox alignment="CENTER" spacing="15">
+                            <Button fx:id="modifyButton" onAction="#handleModify" style="-fx-background-color: linear-gradient(to right, #407bff, #4cc9f0); -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 5; -fx-cursor: hand;" text="MODIFIER">
+                                <effect>
+                                    <DropShadow color="#407bff" radius="10" spread="0.2" />
+                                </effect>
+                            </Button>
+
+                            <Button fx:id="deleteButton" onAction="#handleDelete" style="-fx-background-color: linear-gradient(to right, #e63946, #f72585); -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 5; -fx-cursor: hand;" text="SUPPRIMER">
+                                <effect>
+                                    <DropShadow color="#e63946" radius="10" spread="0.2" />
+                                </effect>
+                            </Button>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Film Details -->
+                    <GridPane hgap="20" style="-fx-padding: 10;" vgap="20" VBox.vgrow="ALWAYS">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="LEFT" minWidth="150" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="350" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                            <RowConstraints minHeight="40" prefHeight="40" />
+                        </rowConstraints>
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="TITRE" />
+                        <Label fx:id="titreLabel" style="-fx-font-size: 18; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Agency FB'; -fx-effect: dropshadow(three-pass-box, rgba(64,123,255,0.5), 3, 0, 0, 0);" GridPane.columnIndex="1" />
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="RÉALISATEUR" GridPane.rowIndex="1" />
+                        <Label fx:id="directeurLabel" style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="NOTE" GridPane.rowIndex="2" />
+                        <Label fx:id="noteLabel" style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="GENRE" GridPane.rowIndex="3" />
+                        <Label fx:id="genreLabel" style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="DURÉE" GridPane.rowIndex="4" />
+                        <Label fx:id="dureeLabel" style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="DÉBUT" GridPane.rowIndex="5" />
+                        <Label fx:id="dateDebutLabel" style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #a0aec0; -fx-font-size: 14; -fx-font-family: 'Agency FB';" text="FIN" GridPane.rowIndex="6" />
+                        <Label fx:id="dateFinLabel" style="-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB';" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    </GridPane>
+                </HBox>
+
+                <!-- Description Section -->
+                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Agency FB'; -fx-effect: dropshadow(three-pass-box, rgba(230,57,70,0.5), 3, 0, 0, 0);" text="DESCRIPTION" />
+
+                    <StackPane style="-fx-background-color: rgba(10,12,39,0.8); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 15;" VBox.vgrow="ALWAYS">
+                        <effect>
+                            <InnerShadow>
+                                <color>rgba(230,57,70,0.2)</color>
+                                <radius>5</radius>
+                                <choke>0</choke>
+                                <offsetX>0</offsetX>
+                                <offsetY>0</offsetY>
+                            </InnerShadow>
+                        </effect>
+
+                        <WebView fx:id="descriptionWebView" style="-fx-background: transparent;" />
+                    </StackPane>
+                </VBox>
+            </VBox>
+        </SplitPane>
+    </center>
+    <Button text="Exporter vers Excel" onAction="#handleExportToExcel" />
+    <!-- Bottom Navigation -->
+    <bottom>
+        <HBox alignment="BOTTOM_RIGHT" spacing="15" style="-fx-padding: 0 20 20 0;">
+            <Button fx:id="exportExcelButton" onAction="#handleExportToExcel" style="-fx-background-color: linear-gradient(to right, #4cc9f0, #4895ef); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 12 28; -fx-background-radius: 5; -fx-cursor: hand;" text="EXPORTER EXCEL">
+                <effect>
+                    <DropShadow color="#4cc9f0" radius="10" spread="0.2" />
+                </effect>
+            </Button>
+
+            <Button fx:id="retourButton" onAction="#handleRetour" style="-fx-background-color: linear-gradient(to right, #e63946, #f72585); -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-padding: 12 28; -fx-background-radius: 5; -fx-cursor: hand;" text="AFFICHER SALLE">
+                <effect>
+                    <DropShadow color="#e63946" radius="10" spread="0.2" />
+                </effect>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>

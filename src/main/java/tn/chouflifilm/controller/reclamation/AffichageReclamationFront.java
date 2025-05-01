@@ -1,4 +1,4 @@
-package tn.chouflifilm.controller.reclamation;
+apackage tn.chouflifilm.controller.reclamation;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

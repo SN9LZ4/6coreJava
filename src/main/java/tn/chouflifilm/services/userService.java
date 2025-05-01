@@ -2,8 +2,12 @@ package tn.chouflifilm.services;
 import com.google.gson.Gson;
 import tn.chouflifilm.entities.User;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.RecursiveTask;
 import tn.chouflifilm.tools.MyDataBase;
 import org.mindrot.jbcrypt.BCrypt;
@@ -53,12 +57,18 @@ public class userService implements IServices<User>{
 
     @Override
     public void supprimerUser(User user) throws SQLException {
-   String sql = "delete from user where email = ?";
-        PreparedStatement ps = cnx.prepareStatement(sql);
-        ps.setString(1, user.getEmail());
-        ps.executeUpdate();
-        System.out.println("Utilisateur Supprimé");
+        String sql = "DELETE FROM user WHERE email = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.setString(1, user.getEmail());
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Utilisateur supprimé avec cascade");
+            } else {
+                System.out.println("Aucun utilisateur trouvé");
+            }
+        }
     }
+
 
     @Override
     public void supprimerparid(int  id) throws SQLException {
@@ -111,11 +121,16 @@ public class userService implements IServices<User>{
 
     @Override
     public void bannneruser(User user) throws SQLException{
-        String sql = "UPDATE user SET banned = ? WHERE email = ?";
+        LocalDateTime bannedUntil = LocalDateTime.now().plusMinutes(15);  // Ajoute 15 minutes
+
+        // Convertir LocalDateTime en java.sql.Timestamp
+        Timestamp bannedUntilTimestamp = Timestamp.valueOf(bannedUntil);
+        String sql = "UPDATE user SET banned = ? ,banned_until = ? WHERE email = ?";
 
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
             ps.setInt(1, 1);
-            ps.setString(2, user.getEmail());
+            ps.setTimestamp(2, bannedUntilTimestamp);
+            ps.setString(3, user.getEmail());
 
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
@@ -128,11 +143,12 @@ public class userService implements IServices<User>{
 
     @Override
     public void unbannneruser(User user) throws SQLException{
-        String sql="update user  set banned=? where email=?";
+        String sql="update user  set banned=? , banned_until =? where email=?";
         PreparedStatement ps = cnx.prepareStatement(sql);
 
         ps.setInt(1,0);
-        ps.setString(2, user.getEmail());
+        ps.setTimestamp(2,null);
+        ps.setString(3, user.getEmail());
 
         ps.executeUpdate();
         System.out.println("code ajouté avec succées ");
@@ -189,6 +205,8 @@ return null;
             user.setLocalisation(rs.getString("localisation"));
             user.setimage(rs.getString("image"));
             user.setPassword(rs.getString("password"));
+            user.setBanned(rs.getInt("banned"));
+            user.setDeleted(rs.getInt("deleted"));
             String rolesStr = rs.getString("roles");
             if (rolesStr != null && !rolesStr.isEmpty()) {
                 String[] roles = rolesStr.split(",");  // Convertir la chaîne en tableau
@@ -279,11 +297,15 @@ return null;
                     user.setimage(rs.getString("image"));
                     user.setPassword(rs.getString("password"));
                     user.setVerification_code(rs.getString("verification_code"));
-
+                    user.setGoogle_id(rs.getString("google_id"));
+                   user.setBanned(rs.getInt("banned"));
+                   user.setBanned_until(rs.getTimestamp("banned_until"));
                 }
             }
         }
+        System.out.println(user);
         return user;
+
     }
 
 
@@ -325,7 +347,7 @@ return null;
 
     @Override
     public List<User> afficherdetailsuser() throws SQLException {
-        String sql = "SELECT nom, prenom, email, num_telephone ,banned ,image FROM user";
+        String sql = "SELECT nom, prenom, email, num_telephone ,banned ,image,roles,localisation FROM user";
         Statement ps = cnx.createStatement();
         ResultSet rs = ps.executeQuery(sql);
         List<User> users = new ArrayList<User>();
@@ -336,7 +358,16 @@ return null;
             user.setEmail(rs.getString("email"));
             user.setNum_telephone(rs.getInt("num_telephone"));
 user.setBanned(rs.getInt("banned"));
+user.setLocalisation(rs.getString("localisation"));
 user.setimage(rs.getString("image"));
+            String rolesStr = rs.getString("roles");
+
+
+            if (rolesStr != null && !rolesStr.isEmpty()) {
+                String[] roles = rolesStr.split(",");  // Convertir la chaîne en tableau
+                user.setRoles(roles);
+            }
+
             users.add(user);
         }
         return users;
@@ -361,6 +392,180 @@ user.setimage(rs.getString("image"));
     }
 return users;
     }
+
+    /**
+     * Récupère le nombre d'utilisateurs bannis groupés par mois
+     * @return Une liste de Map contenant le mois et le nombre d'utilisateurs bannis
+     * @throws SQLException si une erreur de base de données se produit
+     */
+    public List<Map<String, Object>> getBannedUsersByMonth() throws SQLException {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        String sql = "SELECT SUBSTRING(banned_at, 1, 3) AS month, COUNT(id) AS count " +
+                "FROM user " +
+                "WHERE banned = 1 AND banned_at IS NOT NULL " +
+                "GROUP BY month " +
+                "ORDER BY month ASC";
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = cnx.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String month = rs.getString("month");
+                int count = rs.getInt("count");
+
+                Map<String, Object> monthData = new HashMap<>();
+                monthData.put("month", month);
+                monthData.put("count", count);
+
+                result.add(monthData);
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Récupère le nombre d'utilisateurs par rôle (ROLE_ADMIN, ROLE_USER, etc.)
+     * @return Une liste de Map contenant le rôle et le nombre d'utilisateurs
+     * @throws SQLException si une erreur de base de données se produit
+     */
+    public List<Map<String, Object>> getUserCountByRole() throws SQLException {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        String[] roles = {"ROLE_ADMIN", "ROLE_USER"}; // adapte selon les rôles possibles
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            for (String role : roles) {
+                String sql = "SELECT COUNT(*) AS count FROM user WHERE roles LIKE ?";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setString(1, "%\"" + role + "\"%"); // filtre les rôles dans le tableau JSON
+                rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    int count = rs.getInt("count");
+
+                    Map<String, Object> roleData = new HashMap<>();
+                    roleData.put("role", role);
+                    roleData.put("count", count);
+
+                    result.add(roleData);
+                }
+
+                rs.close();
+                stmt.close();
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        }
+
+        return result;
+    }
+    /**
+     * Récupère le nombre de réclamations par type (Type Paiement, Type Réservation, Type Technique)
+     * @return Une liste de Map contenant le type de réclamation et le nombre associé
+     * @throws SQLException si une erreur de base de données se produit
+     */
+    public List<Map<String, Object>> getReclamationCountByType() throws SQLException {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        String[] types = {"Type Paiement", "Type Réservation", "Type Technique"}; // adapte si tu as d'autres types
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            for (String type : types) {
+                String sql = "SELECT COUNT(*) AS count FROM reclamation WHERE type = ?";
+                stmt = cnx.prepareStatement(sql);
+                stmt.setString(1, type);
+                rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    int count = rs.getInt("count");
+
+                    Map<String, Object> typeData = new HashMap<>();
+                    typeData.put("type", type);
+                    typeData.put("count", count);
+
+                    result.add(typeData);
+                }
+
+                rs.close();
+                stmt.close();
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        }
+
+        return result;
+    }
+    public int numberBannedUser() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM user WHERE banned = 1";
+
+        try (Statement stmt = cnx.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+    public int totalUsers() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM user";
+
+        try (Statement stmt = cnx.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+    public int totalReclamations() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM reclamation";
+
+        try (Statement stmt = cnx.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+
 
 
 }

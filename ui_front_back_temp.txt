@@ -1,0 +1,25 @@
+Front UI FXML files:
+- src/main/resources/user/front.fxml
+- src/main/resources/user/editfront.fxml
+- src/main/resources/user/updateFont.fxml
+- src/main/resources/user/user.fxml
+- src/main/resources/Benevolat/Association/affichageFront.fxml
+- src/main/resources/Reclamation/addReclamationFront.fxml
+- src/main/resources/Reclamation/affichageReclamationFront.fxml
+
+Back UI FXML files:
+- src/main/resources/com/example/demo/backback.fxml
+- src/main/resources/com/example/demo/backuser.fxml
+- src/main/resources/com/example/demo/dashboard.fxml
+- src/main/resources/com/example/demo/inscription.fxml
+- src/main/resources/com/example/demo/mail.fxml
+- src/main/resources/com/example/demo/updateback.fxml
+- src/main/resources/com/example/demo/user.fxml
+- src/main/resources/com/example/demo/userteslogin.fxml
+- src/main/resources/com/example/demo/verificationcode.fxml
+- src/main/resources/Benevolat/Association/affichageBack.fxml
+- src/main/resources/Benevolat/Association/editback.fxml
+- src/main/resources/Benevolat/Association/infoWikipedia.fxml
+- src/main/resources/Reclamation/addReclamation.fxml
+- src/main/resources/Reclamation/editReclamation.fxml
+- src/main/resources/Reclamation/reclamationBack.fxml

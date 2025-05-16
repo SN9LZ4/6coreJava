@@ -35,7 +35,7 @@ Accédez au projet via http://localhost/projet.
 Pour utiliser ce projet, vous devez installer l'environnement de Travail  :
 
 1. Téléchargez intellij idea à partir du site officiel : [intellij - Téléchargement](https://www.jetbrains.com/idea/download).
-2. Installez intellij en suivant les instructions spécifiques à votre système d'exploitation :
+2. Installez intellij en suivant les instructions spécifiques : [tuto instrutions ](https://youtu.be/tmEETJUz8uA?si=ywYJbqePQhoFitMd).
 3. Télecharger Scene builder à partie du site officiel : [Builder - Téléchargement](https://gluonhq.com/products/scene-builder).
 
 

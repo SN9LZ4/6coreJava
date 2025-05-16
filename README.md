@@ -34,22 +34,9 @@ Accédez au projet via http://localhost/projet.
 
 Pour utiliser ce projet, vous devez installer PHP. Voici les étapes :
 
-1. Téléchargez PHP à partir du site officiel : [PHP - Téléchargement](https://www.php.net/downloads.php).
-
-2. Installez PHP en suivant les instructions spécifiques à votre système d'exploitation :
-   - Pour **Windows**, vous pouvez utiliser [XAMPP](https://www.apachefriends.org/fr/index.html) ou [WampServer](http://www.wampserver.com/).
-   - Pour **macOS**, vous pouvez utiliser [Homebrew](https://brew.sh/), puis exécuter la commande suivante dans le terminal :
-   ```bash
-   brew install php
-
-
-   - Pour **Linux**, vous pouvez installer PHP via le gestionnaire de paquets. Par exemple, sur Ubuntu :
-    ```bash
-    sudo apt update
-    sudo apt install php
-
-3. Vérifiez l'installation de PHP en exécutant la commande suivante dans votre terminal :
-   php -v
+1. Téléchargez intellij idea à partir du site officiel : [intellij - Téléchargement]([https://www.php.net/downloads.php](https://www.bing.com/search?pglt=427&q=intellij+idea&cvid=c23079a9d5304882a79652a7d485df11&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOdIBCDYwNjJqMGoxqAIAsAIA&FORM=ANNTA1&ucpdpc=UCPD&PC=ASTS)).
+2. Installez intellij en suivant les instructions spécifiques à votre système d'exploitation :
+3. Télecharger Scene builder à partie du site officiel : [Builder - Téléchargement]([https://www.php.net/downloads.php](https://www.bing.com/search?pglt=427&q=intellij+idea&cvid=c23079a9d5304882a79652a7d485df11&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOdIBCDYwNjJqMGoxqAIAsAIA&FORM=ANNTA1&ucpdpc=UCPD&PC=ASTS)](https://www.bing.com/search?pglt=427&q=telecharger+scene+builder&cvid=8a9a045dd3de40e09aa796729c021ad7&gs_lcrp=EgRlZGdlKgYIABBFGDkyBggAEEUYOTIGCAEQABhA0gEINzQzM2owajGoAgCwAgA&FORM=ANNTA1&ucpdpc=UCPD&PC=ASTS)).
 
 
 

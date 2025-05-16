@@ -30,7 +30,7 @@ Accédez au projet via http://localhost/projet.
 
 ## Utilisation
 
-### Installation de PHP
+### Installation d'environnement Java
 
 Pour utiliser ce projet, vous devez installer l'environnement de Travail  :
 
